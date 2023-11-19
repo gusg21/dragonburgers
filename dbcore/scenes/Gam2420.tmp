@@ -1,0 +1,116 @@
+[gd_scene load_steps=15 format=3 uid="uid://ddft1qobgipf2"]
+
+[ext_resource type="Texture2D" uid="uid://x3ml8gduccqc" path="res://sprites/tavern.png" id="1_jm4dr"]
+[ext_resource type="Script" path="res://scripts/CustomerSpawner.gd" id="1_lv00b"]
+[ext_resource type="PackedScene" uid="uid://c37oq1dxo0vnb" path="res://scenes/PlayerDragon.tscn" id="2_f088m"]
+[ext_resource type="Texture2D" uid="uid://b33y457gsren5" path="res://sprites/counter.png" id="3_ppw52"]
+[ext_resource type="Texture2D" uid="uid://4lhnlko0mbof" path="res://sprites/counter-front.png" id="4_hj0re"]
+[ext_resource type="PackedScene" uid="uid://bswtmatg386y0" path="res://scenes/Table.tscn" id="4_leym2"]
+[ext_resource type="Texture2D" uid="uid://db1hn4ohjkmvc" path="res://sprites/ratingui.png" id="7_bbc4i"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_odcoo"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_3otig"]
+normal = Vector2(0, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_vjbtv"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_o2pa1"]
+normal = Vector2(1, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mu2pu"]
+size = Vector2(200, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t0vmv"]
+size = Vector2(30, 89)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7cfs5"]
+size = Vector2(67, 37)
+
+[node name="Gameplay" type="Node2D"]
+
+[node name="World" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="CustomerSpawner" type="Node2D" parent="World"]
+position = Vector2(-1, -94)
+script = ExtResource("1_lv00b")
+
+[node name="CounterPos1" type="Node2D" parent="World/CustomerSpawner"]
+position = Vector2(-67, 73)
+
+[node name="CounterPos2" type="Node2D" parent="World/CustomerSpawner"]
+position = Vector2(1, 73)
+
+[node name="CounterPos3" type="Node2D" parent="World/CustomerSpawner"]
+position = Vector2(72, 73)
+
+[node name="Background" type="Sprite2D" parent="World"]
+z_index = -10
+texture = ExtResource("1_jm4dr")
+
+[node name="Body" type="StaticBody2D" parent="World/Background"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Background/Body"]
+position = Vector2(-1, 166)
+shape = SubResource("WorldBoundaryShape2D_odcoo")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="World/Background/Body"]
+position = Vector2(-1, -103)
+shape = SubResource("WorldBoundaryShape2D_3otig")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="World/Background/Body"]
+position = Vector2(306, 48)
+shape = SubResource("WorldBoundaryShape2D_vjbtv")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="World/Background/Body"]
+position = Vector2(-306, 48)
+shape = SubResource("WorldBoundaryShape2D_o2pa1")
+
+[node name="PlayerDragon" parent="World" instance=ExtResource("2_f088m")]
+position = Vector2(0, 65)
+
+[node name="Table" parent="World" instance=ExtResource("4_leym2")]
+position = Vector2(268, -23)
+
+[node name="CounterFront" type="StaticBody2D" parent="World"]
+
+[node name="Counter2" type="Sprite2D" parent="World/CounterFront"]
+position = Vector2(0, 25.5)
+texture = ExtResource("3_ppw52")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/CounterFront"]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_mu2pu")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="World/CounterFront"]
+position = Vector2(-85, 69.5)
+shape = SubResource("RectangleShape2D_t0vmv")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="World/CounterFront"]
+position = Vector2(85, 70)
+shape = SubResource("RectangleShape2D_t0vmv")
+
+[node name="Counter-back" type="StaticBody2D" parent="World"]
+position = Vector2(0, 133)
+
+[node name="Counter-back" type="Sprite2D" parent="World/Counter-back"]
+texture = ExtResource("4_hj0re")
+offset = Vector2(0, -28)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Counter-back"]
+position = Vector2(-66, -18)
+shape = SubResource("RectangleShape2D_7cfs5")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="World/Counter-back"]
+position = Vector2(65.5, -18)
+shape = SubResource("RectangleShape2D_7cfs5")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="UI" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="UI"]
+position = Vector2(240, -156)
+texture = ExtResource("7_bbc4i")

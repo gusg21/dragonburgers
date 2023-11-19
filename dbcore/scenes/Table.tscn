@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://bswtmatg386y0"]
+
+[ext_resource type="Script" path="res://scripts/Table.gd" id="1_jhisv"]
+[ext_resource type="Texture2D" uid="uid://wncqcmpg1g7l" path="res://sprites/table.png" id="1_qyo07"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bk6y3"]
+size = Vector2(61, 47)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mmyu2"]
+size = Vector2(69, 68)
+
+[node name="Table" type="StaticBody2D"]
+collision_layer = 12
+collision_mask = 13
+script = ExtResource("1_jhisv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -32)
+texture = ExtResource("1_qyo07")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0.5, -23.5)
+shape = SubResource("RectangleShape2D_bk6y3")
+
+[node name="KnockArea" type="Area2D" parent="."]
+collision_layer = 9
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KnockArea"]
+visible = false
+position = Vector2(0.5, -32)
+shape = SubResource("RectangleShape2D_mmyu2")

@@ -1,0 +1,66 @@
+[gd_scene load_steps=12 format=3 uid="uid://76tkwxrde5be"]
+
+[ext_resource type="Script" path="res://scripts/CustomerDragon.gd" id="1_wvmk0"]
+[ext_resource type="SpriteFrames" uid="uid://brj77a7quuywv" path="res://frames/customerdragon.tres" id="1_yh26f"]
+[ext_resource type="Texture2D" uid="uid://bbpohjy7uhchj" path="res://sprites/order-background.png" id="2_8th7k"]
+[ext_resource type="Texture2D" uid="uid://chudjmya05r3h" path="res://sprites/burger.png" id="3_tqqs6"]
+[ext_resource type="Script" path="res://scripts/OrderUI.gd" id="3_woig7"]
+[ext_resource type="Theme" uid="uid://cx0aoqmopoeap" path="res://themes/general_theme.tres" id="4_ekcbo"]
+[ext_resource type="Texture2D" uid="uid://ddhaot3quifje" path="res://sprites/emoticonz.png" id="7_vcjmf"]
+[ext_resource type="Script" path="res://scripts/Emoticon.gd" id="8_5psdh"]
+[ext_resource type="Texture2D" uid="uid://b3x0kwqcgqdoi" path="res://sprites/check.png" id="9_ngd81"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g3pbw"]
+size = Vector2(47, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pykl3"]
+size = Vector2(72.5, 31)
+
+[node name="CustomerDragon" type="CharacterBody2D"]
+collision_layer = 16
+script = ExtResource("1_wvmk0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -9)
+shape = SubResource("RectangleShape2D_g3pbw")
+
+[node name="Character" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, -32)
+sprite_frames = ExtResource("1_yh26f")
+animation = &"idle"
+
+[node name="OrderUI" type="Sprite2D" parent="."]
+position = Vector2(16, -78)
+texture = ExtResource("2_8th7k")
+script = ExtResource("3_woig7")
+
+[node name="Food" type="Sprite2D" parent="OrderUI"]
+scale = Vector2(1, 1.0419)
+texture = ExtResource("3_tqqs6")
+
+[node name="Label" type="Label" parent="OrderUI/Food"]
+offset_left = 5.0
+offset_right = 45.0
+offset_bottom = 23.0
+theme = ExtResource("4_ekcbo")
+text = "2"
+
+[node name="Emoticon" type="Sprite2D" parent="OrderUI"]
+z_index = 1
+position = Vector2(-47, 0)
+texture = ExtResource("7_vcjmf")
+hframes = 3
+script = ExtResource("8_5psdh")
+
+[node name="Check" type="Sprite2D" parent="OrderUI"]
+visible = false
+texture = ExtResource("9_ngd81")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(16.75, -77.5)
+shape = SubResource("RectangleShape2D_pykl3")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+navigation_layers = 2

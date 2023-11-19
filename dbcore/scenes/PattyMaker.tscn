@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://cd3u0o4usrves"]
+
+[ext_resource type="Texture2D" uid="uid://b5x5nsy3twsta" path="res://sprites/pattymaker.png" id="1_oo6hw"]
+[ext_resource type="Script" path="res://scripts/PattyMaker.gd" id="2_uqs7w"]
+[ext_resource type="Texture2D" uid="uid://ckvajirysim2a" path="res://sprites/pattymaker-indicators.png" id="3_2gxux"]
+[ext_resource type="Texture2D" uid="uid://dlum4rkydjspu" path="res://sprites/burning-icon.png" id="4_h8xod"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_62ot7"]
+size = Vector2(26, 30)
+
+[node name="PattyMaker" type="Node2D"]
+script = ExtResource("2_uqs7w")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2, -6)
+shape = SubResource("RectangleShape2D_62ot7")
+
+[node name="Graphics" type="Sprite2D" parent="."]
+texture = ExtResource("1_oo6hw")
+offset = Vector2(0, -16)
+
+[node name="Indicator" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(9, -4)
+texture = ExtResource("3_2gxux")
+hframes = 2
+frame = 1
+
+[node name="Burning" type="Sprite2D" parent="."]
+position = Vector2(0, -19)
+texture = ExtResource("4_h8xod")

@@ -1,0 +1,45 @@
+[gd_scene load_steps=10 format=3 uid="uid://76tkwxrde5be"]
+
+[ext_resource type="Script" path="res://scripts/CustomerDragon.gd" id="1_wvmk0"]
+[ext_resource type="SpriteFrames" uid="uid://brj77a7quuywv" path="res://frames/customerdragon.tres" id="1_yh26f"]
+[ext_resource type="Texture2D" uid="uid://bbpohjy7uhchj" path="res://sprites/order-background.png" id="2_8th7k"]
+[ext_resource type="Texture2D" uid="uid://chudjmya05r3h" path="res://sprites/burger.png" id="3_tqqs6"]
+[ext_resource type="Script" path="res://scripts/OrderUI.gd" id="3_woig7"]
+[ext_resource type="Theme" uid="uid://cx0aoqmopoeap" path="res://themes/general_theme.tres" id="4_ekcbo"]
+[ext_resource type="Texture2D" uid="uid://suxdorgsc3a1" path="res://sprites/fries.png" id="5_mxx6e"]
+[ext_resource type="Texture2D" uid="uid://ddhaot3quifje" path="res://sprites/emoticonz.png" id="7_vcjmf"]
+[ext_resource type="Script" path="res://scripts/Emoticon.gd" id="8_5psdh"]
+
+[node name="CustomerDragon" type="Node2D"]
+script = ExtResource("1_wvmk0")
+
+[node name="Character" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, -32)
+sprite_frames = ExtResource("1_yh26f")
+animation = &"idle"
+
+[node name="OrderUI" type="Sprite2D" parent="."]
+position = Vector2(0, -78)
+texture = ExtResource("2_8th7k")
+script = ExtResource("3_woig7")
+food_textures = {
+0: ExtResource("3_tqqs6"),
+1: ExtResource("5_mxx6e")
+}
+
+[node name="Emoticon" type="Sprite2D" parent="OrderUI"]
+position = Vector2(0, -26)
+texture = ExtResource("7_vcjmf")
+hframes = 3
+script = ExtResource("8_5psdh")
+
+[node name="Food" type="Sprite2D" parent="OrderUI"]
+scale = Vector2(1, 1.0419)
+texture = ExtResource("3_tqqs6")
+
+[node name="Label" type="Label" parent="OrderUI/Food"]
+offset_left = 5.0
+offset_right = 45.0
+offset_bottom = 23.0
+theme = ExtResource("4_ekcbo")
+text = "2"

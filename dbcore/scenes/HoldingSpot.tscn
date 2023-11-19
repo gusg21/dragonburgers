@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://686d3nf6b2ce"]
+
+[ext_resource type="Texture2D" uid="uid://dnr360nd4y4n3" path="res://sprites/holdingspot.png" id="1_31rd0"]
+[ext_resource type="Script" path="res://scripts/HoldingSpot.gd" id="2_3c2ni"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ijjdo"]
+size = Vector2(26, 26)
+
+[node name="HoldingSpot" type="Sprite2D"]
+z_index = 1
+position = Vector2(85, 10)
+texture = ExtResource("1_31rd0")
+script = ExtResource("2_3c2ni")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_ijjdo")

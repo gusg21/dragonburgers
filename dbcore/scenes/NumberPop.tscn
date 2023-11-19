@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0xys3qnvd30b"]
+
+[ext_resource type="Theme" uid="uid://cx0aoqmopoeap" path="res://themes/general_theme.tres" id="1_d6tek"]
+[ext_resource type="Script" path="res://scripts/NumberPop.gd" id="2_cppq3"]
+
+[node name="NumberPop" type="Node2D"]
+z_index = 10
+script = ExtResource("2_cppq3")
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="."]
+offset_left = -20.0
+offset_top = -12.0
+offset_right = 20.0
+offset_bottom = 11.0
+theme = ExtResource("1_d6tek")
+text = "0.2"
+horizontal_alignment = 1
+vertical_alignment = 1
