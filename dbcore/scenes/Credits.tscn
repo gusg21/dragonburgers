@@ -1,0 +1,64 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7f0vfixggqi0"]
+
+[ext_resource type="Theme" uid="uid://cx0aoqmopoeap" path="res://themes/general_theme.tres" id="1_bpufe"]
+[ext_resource type="Script" path="res://scripts/Credits.gd" id="2_vqbf6"]
+[ext_resource type="PackedScene" uid="uid://boqrmogi78b6m" path="res://scenes/SoundManager.tscn" id="3_g8vpi"]
+[ext_resource type="Texture2D" uid="uid://bg4hnndy12e5m" path="res://sprites/logo.png" id="3_q561s"]
+
+[node name="Credits" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="SoundManager" parent="." instance=ExtResource("3_g8vpi")]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 94.0
+offset_right = 40.0
+offset_bottom = 134.0
+script = ExtResource("2_vqbf6")
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_left = -185.0
+offset_top = -165.0
+offset_right = 165.0
+offset_bottom = -15.0
+texture = ExtResource("3_q561s")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control"]
+layout_mode = 0
+offset_left = -320.0
+offset_right = 319.0
+offset_bottom = 736.0
+theme = ExtResource("1_bpufe")
+bbcode_enabled = true
+text = "[center][wave][font=res://fonts/arialrounded.TTF][font_size=40][color=#f9c22b]Dragon[/color] [color=#8fd3ff]Burgers[/color][/font_size][/font][/wave]
+
+[font_size=32]
+A JAM GAME BY:
+[color=#ccc]-------[/color]
+
+
+
+
+
+
+
+
+Gus
+
+
+
+
+
+[color=#ccc]
+Special thanks to Kaermack, Drew, Eric, 
+Xavier, and all the other MTL jammers
+
+Made in 48 hours with Godot 4 and Aseprite
+[/color]
+
+[wave]Thank you for playing![/wave]"
+fit_content = true

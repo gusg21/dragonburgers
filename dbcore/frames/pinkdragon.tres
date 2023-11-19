@@ -1,0 +1,72 @@
+[gd_resource type="SpriteFrames" load_steps=10 format=3 uid="uid://mgatl1mwdtac"]
+
+[ext_resource type="Texture2D" uid="uid://dgpra3qrakiex" path="res://sprites/dragon-pink.png" id="1_pj45v"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uduro"]
+atlas = ExtResource("1_pj45v")
+region = Rect2(0, 0, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_csu43"]
+atlas = ExtResource("1_pj45v")
+region = Rect2(90, 0, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ce8bl"]
+atlas = ExtResource("1_pj45v")
+region = Rect2(180, 0, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qkdhu"]
+atlas = ExtResource("1_pj45v")
+region = Rect2(270, 0, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vfngf"]
+atlas = ExtResource("1_pj45v")
+region = Rect2(0, 90, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ffjt6"]
+atlas = ExtResource("1_pj45v")
+region = Rect2(90, 90, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxopm"]
+atlas = ExtResource("1_pj45v")
+region = Rect2(180, 90, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cninb"]
+atlas = ExtResource("1_pj45v")
+region = Rect2(270, 90, 90, 90)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uduro")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_csu43")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ce8bl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qkdhu")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vfngf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ffjt6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qxopm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cninb")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]

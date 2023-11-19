@@ -1,0 +1,72 @@
+[gd_resource type="SpriteFrames" load_steps=10 format=3 uid="uid://bqynvfaydvpxy"]
+
+[ext_resource type="Texture2D" uid="uid://n62tnv5qngyo" path="res://sprites/dragon-vomit.png" id="1_h5p13"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rrx0b"]
+atlas = ExtResource("1_h5p13")
+region = Rect2(0, 0, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aq102"]
+atlas = ExtResource("1_h5p13")
+region = Rect2(90, 0, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mg4h5"]
+atlas = ExtResource("1_h5p13")
+region = Rect2(180, 0, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_frjet"]
+atlas = ExtResource("1_h5p13")
+region = Rect2(270, 0, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mhw68"]
+atlas = ExtResource("1_h5p13")
+region = Rect2(0, 90, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wfs2j"]
+atlas = ExtResource("1_h5p13")
+region = Rect2(90, 90, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_80cow"]
+atlas = ExtResource("1_h5p13")
+region = Rect2(180, 90, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lqi5p"]
+atlas = ExtResource("1_h5p13")
+region = Rect2(270, 90, 90, 90)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rrx0b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aq102")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mg4h5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_frjet")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mhw68")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wfs2j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_80cow")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lqi5p")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]

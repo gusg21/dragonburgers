@@ -53,6 +53,7 @@ func knock_over():
 	position += knocked_offset
 	fix_time = TIME_TO_FIX
 	Game.TABLES_TOPPLED += 1
+	Game.SOUNDZ.play_sound("bump")
 
 func _mouse_enter() -> void:
 	print("mouse in table")

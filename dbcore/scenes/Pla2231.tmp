@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://c37oq1dxo0vnb"]
+
+[ext_resource type="SpriteFrames" uid="uid://4yh8mpgoquyi" path="res://frames/playerdragon.tres" id="1_4qa0c"]
+[ext_resource type="Script" path="res://scripts/PlayerDragon.gd" id="1_6va1i"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hu3xn"]
+radius = 6.0
+height = 42.0
+
+[node name="PlayerDragon" type="CharacterBody2D" groups=["player"]]
+collision_layer = 4
+collision_mask = 13
+script = ExtResource("1_6va1i")
+metadata/_edit_group_ = true
+
+[node name="Graphics" type="AnimatedSprite2D" parent="." groups=["player"]]
+position = Vector2(4, -42)
+sprite_frames = ExtResource("1_4qa0c")
+animation = &"idle"
+
+[node name="Collider" type="CollisionShape2D" parent="." groups=["player"]]
+position = Vector2(0, -6)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_hu3xn")

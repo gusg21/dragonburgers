@@ -8,6 +8,8 @@ var z_override = false
 func _ready() -> void:
 	if food_type != "":
 		set_type(food_type)
+		
+	Game.SOUNDZ.play_sound("pickup")
 
 func set_type(type):
 	food_type = type

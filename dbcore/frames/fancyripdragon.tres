@@ -1,0 +1,22 @@
+[gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://djwvrwqtsowcr"]
+
+[ext_resource type="Texture2D" uid="uid://4y2p5c81mb7m" path="res://sprites/fancy_rip.png" id="2_xtth3"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_xtth3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_xtth3")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]

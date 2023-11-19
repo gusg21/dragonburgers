@@ -13,7 +13,7 @@ func _process(delta: float) -> void:
 	$Sprite2D.texture = highlight_texture if can_interact() else normal_texture
 
 func can_interact():
-	var accesible = mouse_over and Game.PLAYER.global_position.distance_to($Area2D.global_position) < 50.0
+	var accesible = mouse_over and Game.PLAYER.global_position.distance_to($Area2D.global_position) < 80.0
 	return accesible \
 			and Game.PLAYER.has_ingredient()
 
@@ -28,6 +28,8 @@ func interact():
 	
 	var i = Game.PLAYER.take_ingredient()
 	i.queue_free()
+	
+	Game.SOUNDZ.play_sound("trash")
 
 func _area_input(view, event: InputEvent, shape):
 	if event.is_action_pressed("click"):

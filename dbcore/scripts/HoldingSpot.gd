@@ -12,18 +12,23 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	texture = highlight_texture if can_interact() else normal_texture
+	modulate.a = 1 if is_accessible() and Game.PLAYER.has_ingredient() else 0.5
+
+func is_accessible():
+	return mouse_over and Game.PLAYER.global_position.distance_to($Area2D.global_position) < 80.0
 
 func can_interact():
-	var accesible = mouse_over and Game.PLAYER.global_position.distance_to(global_position) < 80.0
+	var accessible = is_accessible()
 	if held_ingredient == null:
-		return accesible \
+		return accessible \
 				and Game.PLAYER.has_ingredient()
 	else:
-		if held_ingredient.get_type() == "bread":
-			return accesible \
-				and Game.PLAYER.get_held_food_type() == "patty"
+		if held_ingredient.get_type() == "bread" and Game.PLAYER.get_held_food_type() == "patty":
+			return accessible
+		if held_ingredient.get_type() == "patty" and Game.PLAYER.get_held_food_type() == "bread":
+			return accessible
 			
-		return accesible and not Game.PLAYER.has_ingredient()
+		return accessible and not Game.PLAYER.has_ingredient()
 	
 func _mouse_enter() -> void:
 	mouse_over = true
@@ -37,12 +42,14 @@ func interact():
 		held_ingredient.z_override = true
 		held_ingredient.grabbed = false
 		held_ingredient.global_position = global_position
+		Game.SOUNDZ.play_sound("place")
 	else:
-		if held_ingredient.get_type() == "bread" and \
-			Game.PLAYER.get_held_food_type() == "patty":
+		if held_ingredient.get_type() in ["bread", "patty"] and \
+			Game.PLAYER.get_held_food_type() in ["patty", "bread"]:
 			var ingredient = Game.PLAYER.take_ingredient()
 			ingredient.queue_free()
 			held_ingredient.set_type("burger")
+			Game.SOUNDZ.play_sound("place")
 		else:
 			Game.PLAYER.grab_ingredient(held_ingredient)
 			held_ingredient.z_override = false		

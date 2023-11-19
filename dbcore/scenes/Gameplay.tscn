@@ -1,12 +1,14 @@
-[gd_scene load_steps=48 format=3 uid="uid://ddft1qobgipf2"]
+[gd_scene load_steps=70 format=3 uid="uid://ddft1qobgipf2"]
 
 [ext_resource type="Texture2D" uid="uid://x3ml8gduccqc" path="res://sprites/tavern.png" id="1_jm4dr"]
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_kfxtb"]
 [ext_resource type="Script" path="res://scripts/CustomerSpawner.gd" id="1_lv00b"]
 [ext_resource type="PackedScene" uid="uid://c37oq1dxo0vnb" path="res://scenes/PlayerDragon.tscn" id="2_f088m"]
 [ext_resource type="Texture2D" uid="uid://b33y457gsren5" path="res://sprites/counter.png" id="3_ppw52"]
+[ext_resource type="Texture2D" uid="uid://cj3advdawft23" path="res://sprites/window-lit.png" id="4_abiee"]
 [ext_resource type="Texture2D" uid="uid://4lhnlko0mbof" path="res://sprites/counter-front.png" id="4_hj0re"]
 [ext_resource type="PackedScene" uid="uid://bswtmatg386y0" path="res://scenes/Table.tscn" id="4_leym2"]
+[ext_resource type="Script" path="res://scripts/WindowFlashes.gd" id="4_n4e73"]
 [ext_resource type="PackedScene" uid="uid://cd3u0o4usrves" path="res://scenes/PattyMaker.tscn" id="6_bcuv2"]
 [ext_resource type="Texture2D" uid="uid://cx70v2wvol7mc" path="res://sprites/people-container.png" id="7_4sqcp"]
 [ext_resource type="Texture2D" uid="uid://db1hn4ohjkmvc" path="res://sprites/ratingui.png" id="7_bbc4i"]
@@ -26,14 +28,30 @@
 [ext_resource type="Texture2D" uid="uid://prvjvvbggg82" path="res://sprites/trashcan.png" id="21_2287w"]
 [ext_resource type="Script" path="res://scripts/Trash.gd" id="21_k6d4l"]
 [ext_resource type="Theme" uid="uid://cx0aoqmopoeap" path="res://themes/general_theme.tres" id="21_nad00"]
+[ext_resource type="Texture2D" uid="uid://k7bojj71t1o8" path="res://sprites/fryer.png" id="23_3prof"]
+[ext_resource type="Script" path="res://scripts/Fryer.gd" id="23_7phpd"]
 [ext_resource type="Texture2D" uid="uid://ckvp8m83y6veg" path="res://sprites/waiting.png" id="23_to0m5"]
 [ext_resource type="Script" path="res://scripts/WaitingUI.gd" id="24_wnvf0"]
+[ext_resource type="Texture2D" uid="uid://suxdorgsc3a1" path="res://sprites/fries.png" id="25_ule58"]
 [ext_resource type="Script" path="res://scripts/GameOverUI.gd" id="27_guif6"]
 [ext_resource type="Texture2D" uid="uid://tspmogb3muyo" path="res://sprites/play-icon.png" id="27_pxvuh"]
+[ext_resource type="Texture2D" uid="uid://dw7owhbie3rxg" path="res://sprites/vignette.png" id="28_dhehu"]
 [ext_resource type="Texture2D" uid="uid://dvwi372p0l736" path="res://sprites/web-icon.png" id="28_yid45"]
 [ext_resource type="Texture2D" uid="uid://dxjb3e5pfykun" path="res://sprites/wave-time.png" id="30_4ph18"]
 [ext_resource type="Script" path="res://scripts/WaveTimeUI.gd" id="31_elflq"]
 [ext_resource type="Texture2D" uid="uid://beist2mc46ab6" path="res://sprites/wave-time-bar.png" id="31_fys85"]
+[ext_resource type="Texture2D" uid="uid://dql26xepf6b7m" path="res://sprites/credits-icon.png" id="37_wkgty"]
+[ext_resource type="Script" path="res://scripts/MainMenuUI.gd" id="40_kvxy5"]
+[ext_resource type="Texture2D" uid="uid://bg4hnndy12e5m" path="res://sprites/logo.png" id="40_u40b6"]
+[ext_resource type="Texture2D" uid="uid://ds8gxfwxwuwev" path="res://sprites/tut-fryer.png" id="41_3jrqe"]
+[ext_resource type="Texture2D" uid="uid://caii6clk0dqrv" path="res://sprites/tut-workspace.png" id="41_ehw6f"]
+[ext_resource type="Texture2D" uid="uid://camkmetdbpiyd" path="res://sprites/tut-orders.png" id="41_ow8gh"]
+[ext_resource type="Texture2D" uid="uid://br0adjrwdsiwr" path="res://sprites/tut-patties.png" id="41_ucjig"]
+[ext_resource type="Script" path="res://scripts/Logo.gd" id="41_vy48e"]
+[ext_resource type="Texture2D" uid="uid://waf4hairf36p" path="res://sprites/tut-wasd.png" id="43_bsglm"]
+[ext_resource type="Texture2D" uid="uid://ced3x43xmpbli" path="res://sprites/next-icon.png" id="43_u4cqc"]
+[ext_resource type="Texture2D" uid="uid://d1gqnatgf8key" path="res://sprites/tut-mouse.png" id="44_g7t41"]
+[ext_resource type="PackedScene" uid="uid://boqrmogi78b6m" path="res://scenes/SoundManager.tscn" id="50_u67th"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_odcoo"]
 
@@ -59,12 +77,15 @@ size = Vector2(67, 37)
 size = Vector2(48, 23)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sq10x"]
-size = Vector2(52, 61)
+size = Vector2(52, 59.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3e4ea"]
+size = Vector2(52, 36)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_0kf8q"]
-vertices = PackedVector2Array(153, 136, 303, 163, -303, 162, 99, 139, 66, 138, 37, 138, 303, -102, 153, 101, 153, 43, -28, 74, -67, 75, -67, 29, 65, 29, 65, 74, 26, 76, -27, 136, 25, 131, 103, 7, 103, -30, -302, -100, -102, -27, -302.611, 60.1172, -108, 117, -99, 136)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 3, 2, 5), PackedInt32Array(6, 1, 0, 7), PackedInt32Array(6, 7, 8), PackedInt32Array(9, 10, 11, 12), PackedInt32Array(9, 12, 13, 14), PackedInt32Array(15, 9, 14, 16), PackedInt32Array(6, 8, 17, 18), PackedInt32Array(19, 6, 18, 20), PackedInt32Array(21, 19, 20, 22), PackedInt32Array(2, 21, 22, 23), PackedInt32Array(5, 2, 23, 15), PackedInt32Array(5, 15, 16)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-302, -100, -302.611, 60.1172, -303, 162, 303, 163, 303, -102), PackedVector2Array(-108, 117, -99, 136, -27, 136, -28, 74, -67, 75, -67, 29, 65, 29, 65, 74, 26, 76, 25, 131, 37, 138, 66, 138, 99, 139, 153, 136, 153, 101, 153, 43, 103, 7, 103, -30, -102, -27)])
+vertices = PackedVector2Array(160, 101, 161, 34, 303, -102, 303, 163, 160, 137, -28, 74, -67, 75, -67, 29, 65, 29, 65, 74, 26, 76, -27, 142, 25, 131, 30, 141, 103, 7, 103, -30, -302, -100, -102, -27, -302.611, 60.1172, -108, 117, -303, 162, -103, 142, 65, 143, 98, 143)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 7, 8), PackedInt32Array(5, 8, 9, 10), PackedInt32Array(11, 5, 10, 12), PackedInt32Array(11, 12, 13), PackedInt32Array(2, 1, 14, 15), PackedInt32Array(16, 2, 15, 17), PackedInt32Array(18, 16, 17, 19), PackedInt32Array(20, 18, 19, 21), PackedInt32Array(3, 20, 21, 11), PackedInt32Array(3, 11, 13, 22), PackedInt32Array(3, 22, 23), PackedInt32Array(3, 23, 4)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-302, -100, -302.611, 60.1172, -303, 162, 303, 163, 303, -102), PackedVector2Array(-108, 117, -103, 142, -27, 142, -28, 74, -67, 75, -67, 29, 65, 29, 65, 74, 26, 76, 25, 131, 30, 141, 65, 143, 98, 143, 160, 137, 160, 101, 161, 34, 103, 7, 103, -30, -102, -27)])
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_iw0na"]
 vertices = PackedVector2Array(303, -102, 303, 163, 302, 81, 301, -21, 301, -73, 104, 129, 234, 126, 301, 126, 89, 155, -232, -23, -232, -74, -102, -27, -108, 117, -231, 80, -302, -100, 234, -72, -231, 125, -28, 74, -67, 75, -67, 29, 65, 29, 65, 74, 26, 76, -27, 136, 27, 140, 235, 81, 103, -30, 234, -21, -300, -72, -301, -22, -299, 81, -302.611, 60.1172, -303, 162, 35, 154, -99, 136, -299, 126)
@@ -75,7 +96,20 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-302, -100, -302.611, 6
 size = Vector2(33, 22)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j7n44"]
-size = Vector2(33, 20)
+size = Vector2(38, 36)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_837km"]
+size = Vector2(27, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ueve5"]
+bg_color = Color(0.180392, 0.133333, 0.184314, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.780392, 0.862745, 0.815686, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lc38j"]
 
 [node name="Gameplay" type="Node2D"]
 
@@ -117,6 +151,25 @@ shape = SubResource("WorldBoundaryShape2D_vjbtv")
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="World/Background/Body"]
 position = Vector2(-306, 48)
 shape = SubResource("WorldBoundaryShape2D_o2pa1")
+
+[node name="Flashes" type="Node2D" parent="World/Background"]
+script = ExtResource("4_n4e73")
+
+[node name="WindowFlash" type="Sprite2D" parent="World/Background/Flashes"]
+position = Vector2(-250, -130)
+texture = ExtResource("4_abiee")
+
+[node name="WindowFlash2" type="Sprite2D" parent="World/Background/Flashes"]
+position = Vector2(-128, -130)
+texture = ExtResource("4_abiee")
+
+[node name="WindowFlash3" type="Sprite2D" parent="World/Background/Flashes"]
+position = Vector2(127, -130)
+texture = ExtResource("4_abiee")
+
+[node name="WindowFlash4" type="Sprite2D" parent="World/Background/Flashes"]
+position = Vector2(249, -130)
+texture = ExtResource("4_abiee")
 
 [node name="PlayerDragon" parent="World" instance=ExtResource("2_f088m")]
 position = Vector2(0, 65)
@@ -160,6 +213,10 @@ position = Vector2(-86, 66)
 
 [node name="PattyMaker2" parent="World" instance=ExtResource("6_bcuv2")]
 position = Vector2(-86, 35)
+
+[node name="PattyMaker3" parent="World" instance=ExtResource("6_bcuv2")]
+visible = false
+position = Vector2(-86, 4)
 
 [node name="Counter-back" type="StaticBody2D" parent="World"]
 position = Vector2(0, 133)
@@ -210,11 +267,11 @@ shape = SubResource("RectangleShape2D_iclbt")
 [node name="Area2D" type="Area2D" parent="World/PeopleContainer"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/PeopleContainer/Area2D"]
-position = Vector2(0, -30.5)
+position = Vector2(0, -30.75)
 shape = SubResource("RectangleShape2D_sq10x")
 
 [node name="BreadSource" type="StaticBody2D" parent="World"]
-position = Vector2(125, 104)
+position = Vector2(125, 100)
 script = ExtResource("15_2sg0v")
 
 [node name="Graphics" type="Sprite2D" parent="World/BreadSource"]
@@ -228,8 +285,8 @@ shape = SubResource("RectangleShape2D_iclbt")
 [node name="Area2D" type="Area2D" parent="World/BreadSource"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/BreadSource/Area2D"]
-position = Vector2(0, -30.5)
-shape = SubResource("RectangleShape2D_sq10x")
+position = Vector2(0, -47)
+shape = SubResource("RectangleShape2D_3e4ea")
 
 [node name="NavWithTables" type="NavigationRegion2D" parent="World"]
 visible = false
@@ -312,8 +369,30 @@ texture = ExtResource("21_2287w")
 [node name="Area2D" type="Area2D" parent="World/Trash"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Trash/Area2D"]
-position = Vector2(-0.5, -39)
+position = Vector2(-1, -33)
 shape = SubResource("RectangleShape2D_j7n44")
+
+[node name="Fryer" type="Node2D" parent="World"]
+z_index = 1
+position = Vector2(-51, 81)
+script = ExtResource("23_7phpd")
+
+[node name="Graphics" type="Sprite2D" parent="World/Fryer"]
+texture = ExtResource("23_3prof")
+
+[node name="Area2D" type="Area2D" parent="World/Fryer"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Fryer/Area2D"]
+position = Vector2(1, 9)
+shape = SubResource("RectangleShape2D_837km")
+
+[node name="Pointer" type="Sprite2D" parent="World/Fryer"]
+position = Vector2(0, -15)
+texture = ExtResource("8_4jyph")
+
+[node name="Sprite2D" type="Sprite2D" parent="World/Fryer/Pointer"]
+position = Vector2(1, -3)
+texture = ExtResource("25_ule58")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -322,6 +401,11 @@ layer = 2
 offset = Vector2(-320, -180)
 transform = Transform2D(1, 0, 0, 1, -320, -180)
 follow_viewport_enabled = true
+
+[node name="Vignette" type="Sprite2D" parent="UI"]
+visible = false
+texture = ExtResource("28_dhehu")
+centered = false
 
 [node name="WaitingUI" type="Sprite2D" parent="UI"]
 position = Vector2(320, 24)
@@ -364,6 +448,26 @@ offset_bottom = 30.0
 theme = ExtResource("21_nad00")
 text = "3.99/5"
 horizontal_alignment = 2
+
+[node name="WaveTimeUI" type="Sprite2D" parent="UI"]
+texture = ExtResource("30_4ph18")
+centered = false
+script = ExtResource("31_elflq")
+
+[node name="Bar" type="Sprite2D" parent="UI/WaveTimeUI"]
+position = Vector2(39, 3)
+texture = ExtResource("31_fys85")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 114, 18)
+
+[node name="WaveNum" type="Label" parent="UI/WaveTimeUI"]
+offset_left = 78.0
+offset_top = 22.0
+offset_right = 118.0
+offset_bottom = 45.0
+theme = ExtResource("21_nad00")
+text = "2"
 
 [node name="GameOverUI" type="MarginContainer" parent="UI"]
 visible = false
@@ -440,23 +544,314 @@ size_flags_horizontal = 4
 text = "itch.io"
 icon = ExtResource("28_yid45")
 
-[node name="WaveTimeUI" type="Sprite2D" parent="UI"]
-texture = ExtResource("30_4ph18")
-centered = false
-script = ExtResource("31_elflq")
+[node name="Credits" type="Button" parent="UI/GameOverUI/Panel/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Credits"
+icon = ExtResource("37_wkgty")
 
-[node name="Bar" type="Sprite2D" parent="UI/WaveTimeUI"]
-position = Vector2(39, 3)
-texture = ExtResource("31_fys85")
-centered = false
-region_enabled = true
-region_rect = Rect2(0, 0, 114, 18)
+[node name="MainMenuUI" type="MarginContainer" parent="UI"]
+z_index = 10
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("40_kvxy5")
 
-[node name="WaveNum" type="Label" parent="UI/WaveTimeUI"]
-z_index = 1
-offset_left = 78.0
-offset_top = 22.0
-offset_right = 118.0
-offset_bottom = 45.0
+[node name="Tut4" type="Panel" parent="UI/MainMenuUI"]
+visible = false
+layout_mode = 2
 theme = ExtResource("21_nad00")
-text = "2"
+theme_override_styles/panel = SubResource("StyleBoxFlat_ueve5")
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/MainMenuUI/Tut4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MainMenuUI/Tut4/CenterContainer"]
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 2
+
+[node name="Container" type="VBoxContainer" parent="UI/MainMenuUI/Tut4/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/MainMenuUI/Tut4/CenterContainer/VBoxContainer/Container"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MainMenuUI/Tut4/CenterContainer/VBoxContainer/Container/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/MainMenuUI/Tut4/CenterContainer/VBoxContainer/Container/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("41_3jrqe")
+stretch_mode = 3
+
+[node name="Label2" type="RichTextLabel" parent="UI/MainMenuUI/Tut4/CenterContainer/VBoxContainer/Container/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]The fryer will make fries automatically after you interact with it, no need for ingredients or attention. Magic!"
+fit_content = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="UI/MainMenuUI/Tut4/CenterContainer/VBoxContainer/Container/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/MainMenuUI/Tut4/CenterContainer/VBoxContainer/Container/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("41_ow8gh")
+stretch_mode = 3
+
+[node name="Label2" type="RichTextLabel" parent="UI/MainMenuUI/Tut4/CenterContainer/VBoxContainer/Container/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]Once you have a part of an order complete, click on the
+order popup to give it to the customer.
+[color=#ccc]Tip: Try not to let the customer's happiness get too low, we
+don't want bad reviews!"
+fit_content = true
+
+[node name="Next" type="Button" parent="UI/MainMenuUI/Tut4/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Start Game!"
+icon = ExtResource("27_pxvuh")
+
+[node name="Tut3" type="Panel" parent="UI/MainMenuUI"]
+visible = false
+layout_mode = 2
+theme = ExtResource("21_nad00")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ueve5")
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/MainMenuUI/Tut3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MainMenuUI/Tut3/CenterContainer"]
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 2
+
+[node name="Container" type="VBoxContainer" parent="UI/MainMenuUI/Tut3/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MainMenuUI/Tut3/CenterContainer/VBoxContainer/Container"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/MainMenuUI/Tut3/CenterContainer/VBoxContainer/Container/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("41_ehw6f")
+stretch_mode = 3
+
+[node name="Label2" type="RichTextLabel" parent="UI/MainMenuUI/Tut3/CenterContainer/VBoxContainer/Container/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]Use the yellow slots to build burgers,
+[color=#ccc](just place a bun and then put a patty in the same place)[/color]
+Use the trash can to dispose of any unwanted items,
+Use the Bun Bin to grab as many hamburger buns as you need,
+Use the People Box to store any excess townsfolk!"
+fit_content = true
+
+[node name="Next" type="Button" parent="UI/MainMenuUI/Tut3/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Next"
+icon = ExtResource("43_u4cqc")
+
+[node name="Tut2" type="Panel" parent="UI/MainMenuUI"]
+visible = false
+layout_mode = 2
+theme = ExtResource("21_nad00")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ueve5")
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/MainMenuUI/Tut2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MainMenuUI/Tut2/CenterContainer"]
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 2
+
+[node name="Container" type="VBoxContainer" parent="UI/MainMenuUI/Tut2/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Label" type="RichTextLabel" parent="UI/MainMenuUI/Tut2/CenterContainer/VBoxContainer/Container"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+bbcode_enabled = true
+text = "[center][wave][font_size=32]Use Villagers to make burger patties![/font_size][/wave]
+"
+fit_content = true
+
+[node name="HSeparator" type="HSeparator" parent="UI/MainMenuUI/Tut2/CenterContainer/VBoxContainer/Container"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MainMenuUI/Tut2/CenterContainer/VBoxContainer/Container"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/MainMenuUI/Tut2/CenterContainer/VBoxContainer/Container/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("41_ucjig")
+stretch_mode = 3
+
+[node name="Label2" type="RichTextLabel" parent="UI/MainMenuUI/Tut2/CenterContainer/VBoxContainer/Container/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]Click on them to grab them and put them in the burger patty machine.
+ If you don't see any townsfolk try knocking over a table or two!
+
+[color=#aaa]Hint: Try not to burn the patties - you can't put those in burgers. Although some
+customers love burned patties on their own!
+"
+fit_content = true
+
+[node name="Next" type="Button" parent="UI/MainMenuUI/Tut2/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Next"
+icon = ExtResource("43_u4cqc")
+
+[node name="Tut1" type="Panel" parent="UI/MainMenuUI"]
+visible = false
+layout_mode = 2
+theme = ExtResource("21_nad00")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ueve5")
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/MainMenuUI/Tut1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MainMenuUI/Tut1/CenterContainer"]
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 2
+
+[node name="Container" type="VBoxContainer" parent="UI/MainMenuUI/Tut1/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Label" type="RichTextLabel" parent="UI/MainMenuUI/Tut1/CenterContainer/VBoxContainer/Container"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+bbcode_enabled = true
+text = "[center][wave][font_size=32]Welcome to Dragon Burgers![/font_size][/wave]
+"
+fit_content = true
+
+[node name="HSeparator" type="HSeparator" parent="UI/MainMenuUI/Tut1/CenterContainer/VBoxContainer/Container"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/MainMenuUI/Tut1/CenterContainer/VBoxContainer/Container"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MainMenuUI/Tut1/CenterContainer/VBoxContainer/Container/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/MainMenuUI/Tut1/CenterContainer/VBoxContainer/Container/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("43_bsglm")
+stretch_mode = 3
+
+[node name="Label2" type="RichTextLabel" parent="UI/MainMenuUI/Tut1/CenterContainer/VBoxContainer/Container/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]Use WASD to move your character
+"
+fit_content = true
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="UI/MainMenuUI/Tut1/CenterContainer/VBoxContainer/Container/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="UI/MainMenuUI/Tut1/CenterContainer/VBoxContainer/Container/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("44_g7t41")
+stretch_mode = 3
+
+[node name="Label2" type="RichTextLabel" parent="UI/MainMenuUI/Tut1/CenterContainer/VBoxContainer/Container/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]Click to interact with objects"
+fit_content = true
+
+[node name="Next" type="Button" parent="UI/MainMenuUI/Tut1/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Next"
+icon = ExtResource("43_u4cqc")
+
+[node name="FrontCard" type="Panel" parent="UI/MainMenuUI"]
+visible = false
+layout_mode = 2
+theme = ExtResource("21_nad00")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ueve5")
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/MainMenuUI/FrontCard"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MainMenuUI/FrontCard/CenterContainer"]
+layout_mode = 2
+
+[node name="Logo" type="TextureRect" parent="UI/MainMenuUI/FrontCard/CenterContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("40_u40b6")
+script = ExtResource("41_vy48e")
+
+[node name="Label" type="Label" parent="UI/MainMenuUI/FrontCard/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "by Angus Goucher"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="UI/MainMenuUI/FrontCard/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_lc38j")
+
+[node name="Play" type="Button" parent="UI/MainMenuUI/FrontCard/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("9_xdmpx")
+theme_override_font_sizes/font_size = 20
+text = "Play!"
+icon = ExtResource("27_pxvuh")
+
+[node name="SoundManager" parent="." instance=ExtResource("50_u67th")]

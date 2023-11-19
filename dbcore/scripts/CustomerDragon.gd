@@ -2,6 +2,12 @@ extends CharacterBody2D
 
 var WALK_SPEED = 50.0
 var CHANCE_TO_EAT_IN = 0.3
+@onready var ANIMATION_SETS = [
+	preload("res://frames/bluedragon.tres"),
+	preload("res://frames/pinkdragon.tres"),
+	preload("res://frames/reddragon.tres"),
+	preload("res://frames/vomitdragon.tres"),
+]
 
 var my_order
 var happiness = 1.0
@@ -17,9 +23,12 @@ var order_filled: bool = false
 var mouse_over: bool = false
 var delivered_foods = []
 var leaving = false
+var hotfix_timer = 10
 var eat_timer = 10
 
 func _ready() -> void: 
+	$Character.sprite_frames = ANIMATION_SETS.pick_random()
+	
 	$NavigationAgent2D.path_desired_distance = 4.0
 	$NavigationAgent2D.target_desired_distance = 4.0
 	
@@ -39,7 +48,8 @@ func _process(delta):
 	$OrderUI.raging = happiness < 0.15
 	
 	if !order_filled:
-		happiness -= delta / Game.SECONDS_TO_SAD
+		var seconds_to_sad = Game.SECONDS_TO_SAD - (Game.WAVE_NUMBER * 4)
+		happiness -= delta / seconds_to_sad
 		happiness = clamp(happiness, 0.0, 1.0) # life
 		$OrderUI/Emoticon.set_happiness(happiness)
 		if happiness <= 0:
@@ -51,11 +61,31 @@ func _process(delta):
 			leaving = true
 			
 	if leaving:
-		print(global_position.distance_to(target_position))
+		hotfix_timer -= delta
+		if hotfix_timer <= 0:
+			exit_building()
+		
+#		print(global_position.distance_to(target_position))
 		if global_position.distance_to(target_position) < 90: # unsure why this needs to be so high :/
 			exit_building()
+			
+	var speed_norm = velocity.length() / WALK_SPEED
+#	print(speed_norm)
+	if speed_norm > 0.5:
+		$Character.play("walk")
+		$Character.speed_scale = speed_norm
+	else:
+		$Character.play("idle")		
+		$Character.speed_scale = 1
+	
+	if abs(velocity.x) > 5:
+		if velocity.x > 0:
+			$Character.flip_h = true
+		else:
+			$Character.flip_h = false
 	
 	if $NavigationAgent2D.is_navigation_finished():
+		velocity = Vector2.ZERO
 		return
 
 	var current_agent_position: Vector2 = global_position
@@ -109,6 +139,7 @@ func exit_building():
 
 func finish_order():
 	Game.CUSTOMERS_SERVED += 1
+	Game.SOUNDZ.play_sound("fanfare")
 	
 	Game.ALIVE_CUSTOMERS -= 1
 	marked_as_not_alive = true

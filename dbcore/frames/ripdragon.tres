@@ -1,0 +1,22 @@
+[gd_resource type="SpriteFrames" load_steps=2 format=3 uid="uid://btdlrqeb4rg0n"]
+
+[ext_resource type="Texture2D" uid="uid://byme2r3f844cb" path="res://sprites/rip.png" id="1_xiq1q"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_xiq1q")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_xiq1q")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]

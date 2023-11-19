@@ -14,7 +14,7 @@ func _process(delta: float) -> void:
 	$Graphics.texture = highlight_texture if can_interact() else normal_texture
 
 func can_interact():
-	var accesible = mouse_over and Game.PLAYER.global_position.distance_to($Area2D.global_position) < 50.0
+	var accesible = mouse_over and Game.PLAYER.global_position.distance_to($Area2D.global_position) < 80.0
 	return accesible \
 				and not Game.PLAYER.has_ingredient()
 	

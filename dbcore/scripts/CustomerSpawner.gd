@@ -19,6 +19,7 @@ func spawn_customer(order):
 		customer.customer_position_index = index
 		customer.target_position = counter_positions[index].global_position
 		spawn_timer = randf_range(5.0, 10.0)
+		Game.SOUNDZ.play_sound("door_open")
 
 func _process(delta):
 	if Game.is_mode_pausey(): return
@@ -28,8 +29,28 @@ func _process(delta):
 	spawn_timer -= delta
 	
 	if spawn_timer <= 0:
+		var max = 1
+		if Game.WAVE_NUMBER >= 2:
+			max = 2
+		if Game.WAVE_NUMBER >= 4:
+			max = 4
+		if Game.WAVE_NUMBER >= 6:
+			max = 5
+			
+		var foods = ["burger", "burger", "burger", "patty"]
+		if Game.WAVE_NUMBER >= 2:
+			foods.append_array(["fries", "fries", "fries", "burned_patty"])
+		if Game.WAVE_NUMBER >= 3:
+			foods.append_array(["bread", "burger", "burned_patty"])
+		if Game.WAVE_NUMBER >= 4:
+			foods.append_array(["burned_patty", "burned_patty"])
+		
+		var food = foods.pick_random()
+		
+		if food == "burned_patty": max = 1
+		
 		var order = {
-			food_type = Game.FOOD_TYPES.keys().pick_random(),
-			count = randi_range(1, 2)
+			food_type = food,
+			count = randi_range(1, max)
 		}
 		spawn_customer(order)

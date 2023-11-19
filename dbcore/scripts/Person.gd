@@ -9,6 +9,7 @@ var am_i_hidden: bool = false
 var mouse_over = false
 var grabbed = false
 var rehide_timer = 100
+var my_screaming = null
 
 @onready var navigation_agent: NavigationAgent2D = $NavigationAgent2D
 
@@ -43,6 +44,8 @@ func _area_input(view, event: InputEvent, shape):
 	if event.is_action_pressed("click"):
 		if mouse_over and grabbable():
 			Game.PLAYER.grab_human(self)
+			if my_screaming == null:
+				my_screaming = Game.SOUNDZ.play_sound("aaa")
 			grabbed = true
 
 func actor_setup():
@@ -54,7 +57,8 @@ func find_new_hiding_spot():
 	rehide_timer = randf_range(10, 20)
 	var AAA = randf() < 0.1
 	$CPUParticles2D.emitting = AAA
-	if AAA: print("AAA")
+	if AAA and my_screaming == null:
+		my_screaming = Game.SOUNDZ.play_sound("aaa")
 	
 	var spots: Array = Game.HIDING_SPOTS
 	spots.shuffle()
@@ -77,19 +81,27 @@ func _physics_process(delta):
 	var current_agent_position: Vector2 = global_position
 	var next_path_position: Vector2 = navigation_agent.get_next_path_position()
 
+	var speed = movement_speed
+	speed += Game.WAVE_NUMBER * 30
+	
 	var new_velocity: Vector2 = next_path_position - current_agent_position
 	new_velocity = new_velocity.limit_length()
-	new_velocity = new_velocity * movement_speed
+	new_velocity = new_velocity * speed
 
 	velocity = new_velocity
 	move_and_slide()
 
 func _exit_tree() -> void:
+	print("EXITING TREE")
 	Game.ALIVE_HUMAN_COUNT -= 1
 	Game.ALIVE_HUMAN_COUNT = clamp(Game.ALIVE_HUMAN_COUNT, 0, 100)
+	if my_screaming != null:
+		my_screaming.queue_free()
+	else:
+		print("not screaming?")
 
 func rehide():
-	rehide_timer = randf_range(10, 20)
+	rehide_timer = randf_range(5, 15)
 	find_new_hiding_spot()
 
 func _process(delta: float) -> void:
@@ -118,4 +130,6 @@ func _process(delta: float) -> void:
 		if not am_i_hidden:
 			rotation_degrees = sin(Game.get_time() * 20.0) * 10.0
 		else:
+			if my_screaming != null and my_screaming.playing:
+				my_screaming.stop()
 			$CPUParticles2D.emitting = false

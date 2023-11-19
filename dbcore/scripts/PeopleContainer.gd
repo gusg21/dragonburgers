@@ -11,7 +11,15 @@ func _ready() -> void:
 	$Area2D.mouse_exited.connect(_mouse_exit)
 
 func can_deposit():
-	return mouse_over and Game.PLAYER.global_position.distance_to($Area2D.global_position) < 50.0
+	var a = mouse_over and \
+		Game.PLAYER.global_position.distance_to($Area2D.global_position) < 90.0
+		
+	if Game.PLAYER.has_human():
+		return a
+	elif not Game.PLAYER.holding_any() and Game.HUMANS_IN_BOX > 0:
+		return a
+		
+	return false
 
 func _process(delta: float) -> void:
 	$Graphics.texture = highlight_texture if can_deposit() else normal_texture
@@ -33,7 +41,8 @@ func deposit():
 		Game.HUMANS_IN_BOX += 1
 		Game.PLAYER.held_human.queue_free()
 		Game.PLAYER.drop_human()
-	elif Game.HUMANS_IN_BOX > 0:
+		Game.SOUNDZ.play_sound("boxed")
+	elif Game.HUMANS_IN_BOX > 0 and not Game.PLAYER.holding_any():
 		Game.HUMANS_IN_BOX -= 1
 		var new_human = human_scene.instantiate()
 		new_human.grabbed = true

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7f0vfixggqi0"]
+
+[ext_resource type="Theme" uid="uid://cx0aoqmopoeap" path="res://themes/general_theme.tres" id="1_bpufe"]
+[ext_resource type="Script" path="res://scripts/Credits.gd" id="2_vqbf6"]
+
+[node name="Credits" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = -320.0
+offset_right = 319.0
+offset_bottom = 40.0
+theme = ExtResource("1_bpufe")
+bbcode_enabled = true
+text = "[center][font=res://fonts/arialrounded.TTF][font_size=40][color=#f9c22b]Dragon[/color] [color=#8fd3ff]Burgers[/color][/font_size][/font]
+
+[font_size=32]
+CREDITS"
+fit_content = true
+script = ExtResource("2_vqbf6")

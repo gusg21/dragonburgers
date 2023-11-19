@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://76tkwxrde5be"]
 
 [ext_resource type="Script" path="res://scripts/CustomerDragon.gd" id="1_wvmk0"]
-[ext_resource type="SpriteFrames" uid="uid://brj77a7quuywv" path="res://frames/customerdragon.tres" id="1_yh26f"]
 [ext_resource type="Texture2D" uid="uid://bbpohjy7uhchj" path="res://sprites/order-background.png" id="2_8th7k"]
+[ext_resource type="SpriteFrames" uid="uid://4yh8mpgoquyi" path="res://frames/greendragon.tres" id="2_bnk8w"]
 [ext_resource type="Texture2D" uid="uid://chudjmya05r3h" path="res://sprites/burger.png" id="3_tqqs6"]
 [ext_resource type="Script" path="res://scripts/OrderUI.gd" id="3_woig7"]
 [ext_resource type="Theme" uid="uid://cx0aoqmopoeap" path="res://themes/general_theme.tres" id="4_ekcbo"]
@@ -14,7 +14,7 @@
 size = Vector2(47, 18)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pykl3"]
-size = Vector2(72.5, 31)
+size = Vector2(61, 83)
 
 [node name="CustomerDragon" type="CharacterBody2D"]
 collision_layer = 16
@@ -25,8 +25,8 @@ position = Vector2(0.5, -9)
 shape = SubResource("RectangleShape2D_g3pbw")
 
 [node name="Character" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, -32)
-sprite_frames = ExtResource("1_yh26f")
+position = Vector2(5, -43)
+sprite_frames = ExtResource("2_bnk8w")
 animation = &"idle"
 
 [node name="OrderUI" type="Sprite2D" parent="."]
@@ -59,7 +59,7 @@ texture = ExtResource("9_ngd81")
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(16.75, -77.5)
+position = Vector2(6.5, -41.5)
 shape = SubResource("RectangleShape2D_pykl3")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

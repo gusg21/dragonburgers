@@ -26,7 +26,7 @@ func can_interact():
 		return cook_time > TIME_TO_DONE and not Game.PLAYER.holding_any()
 
 func _process(delta: float) -> void:
-	if Game.is_mode_pausey(): return
+	if Game.is_mode_pausey() or not visible: return
 	
 	if not closed:
 		$Graphics.texture = highlight_texture if can_interact() else normal_texture
@@ -53,8 +53,12 @@ func _area_input(view, event: InputEvent, shape):
 func close():
 	closed = true
 	cook_time = 0
+	Game.SOUNDZ.play_sound("frying")
+	Game.SOUNDZ.play_sound("closed")
 	
 func interact():
+	if not visible: return
+	
 	if not closed:
 		Game.PLAYER.held_human.queue_free()
 		Game.PLAYER.drop_human()

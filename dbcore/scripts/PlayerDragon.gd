@@ -1,16 +1,24 @@
 extends CharacterBody2D
 
 const ACCELERATION = 50.0
-const MAX_SPEED = 300.0
+const MAX_SPEED = 250.0
 
 var held_human
 var held_ingredient
+
+@onready var rip_frames = preload("res://frames/ripdragon.tres")
+@onready var fancy_rip_frames = preload("res://frames/fancyripdragon.tres")
 
 func _ready() -> void:
 	Game.PLAYER = self
 
 func get_grab_position():
-	return global_position + Vector2(32, -32)
+	var offset
+	if $Graphics.flip_h:
+		offset = Vector2(32, -32)
+	else:
+		offset = Vector2(-24, -32)
+	return global_position + offset
 	
 func grab_human(human):
 	Game.HUMANS_GRABBED += 1
@@ -25,7 +33,8 @@ func has_ingredient(): return held_ingredient != null
 
 func holding_any(): return has_human() or has_ingredient()
 
-func grab_ingredient(ingredient): held_ingredient = ingredient
+func grab_ingredient(ingredient):
+	held_ingredient = ingredient
 
 func take_ingredient():
 	var temp = held_ingredient
@@ -41,7 +50,12 @@ func get_held_food_type():
 func _physics_process(_delta):
 	if Game.is_mode_pausey(): return
 	
+	if Input.is_action_just_pressed("DEBUG_die"):
+		Game.RATING = 0.01
+	
 	if Game.MODE == "serving":
+		$"/root/Gameplay/World/PattyMaker3".visible = Game.WAVE_NUMBER >= 3
+		
 		Game.PLAY_TIME += _delta
 		
 		Game.WAVE_TIME -= _delta
@@ -49,13 +63,26 @@ func _physics_process(_delta):
 		
 		if Game.WAVE_TIME <= 0:
 			Game.MODE = "waiting"
-			Game.WAIT_TIME = 15
+			if Game.WAVE_NUMBER >= 3:
+				Game.WAIT_TIME = 5
+			else:
+				Game.WAIT_TIME = 10
 		
-		Game.RATING -= _delta * 0.03
+		var rating_dec_speed = 0.03
+		rating_dec_speed += (Game.WAVE_NUMBER-1) * 0.01
+		
+		Game.RATING -= _delta * rating_dec_speed
 		Game.RATING = clampf(Game.RATING, 0, 5)
 	
 		if Game.RATING <= 0:
+			if Game.PLAY_TIME > Game.HIGHSCORE_TIME:
+				print("high")
+				$Graphics.sprite_frames = fancy_rip_frames
+			else:
+				$Graphics.sprite_frames = rip_frames
+			
 			Game.MODE = "game_over"
+			
 	elif Game.MODE == "waiting":
 		Game.WAIT_TIME -= _delta
 		
@@ -73,3 +100,17 @@ func _physics_process(_delta):
 	velocity = velocity.move_toward(movement * MAX_SPEED, ACCELERATION)
 
 	move_and_slide()
+	
+	var speed_norm = velocity.length() / MAX_SPEED
+	if speed_norm > 0.05:
+		$Graphics.play("walk")
+		$Graphics.speed_scale = speed_norm
+	else:
+		$Graphics.play("idle")		
+		$Graphics.speed_scale = 1
+	
+	if abs(velocity.x) > 5:
+		if velocity.x > 0:
+			$Graphics.flip_h = true
+		else:
+			$Graphics.flip_h = false

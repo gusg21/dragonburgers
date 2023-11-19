@@ -1,0 +1,72 @@
+[gd_resource type="SpriteFrames" load_steps=10 format=3 uid="uid://duagqwq4mp8cb"]
+
+[ext_resource type="Texture2D" uid="uid://cysndacfvsijq" path="res://sprites/dragon-blue.png" id="1_tliha"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvgts"]
+atlas = ExtResource("1_tliha")
+region = Rect2(0, 0, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvbg8"]
+atlas = ExtResource("1_tliha")
+region = Rect2(90, 0, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6gtav"]
+atlas = ExtResource("1_tliha")
+region = Rect2(180, 0, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4xioc"]
+atlas = ExtResource("1_tliha")
+region = Rect2(270, 0, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5nbxs"]
+atlas = ExtResource("1_tliha")
+region = Rect2(0, 90, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t8mcl"]
+atlas = ExtResource("1_tliha")
+region = Rect2(90, 90, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wgxaw"]
+atlas = ExtResource("1_tliha")
+region = Rect2(180, 90, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b851o"]
+atlas = ExtResource("1_tliha")
+region = Rect2(270, 90, 90, 90)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvgts")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gvbg8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6gtav")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4xioc")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5nbxs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t8mcl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wgxaw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b851o")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]
