@@ -1,0 +1,110 @@
+[gd_scene load_steps=9 format=3 uid="uid://bxg67r0vsch0d"]
+
+[ext_resource type="Texture2D" uid="uid://cuta53k3sn8ko" path="res://sprites/shop-item-bg.png" id="1_2wmwl"]
+[ext_resource type="Theme" uid="uid://cx0aoqmopoeap" path="res://themes/general_theme.tres" id="1_24qwi"]
+[ext_resource type="Texture2D" uid="uid://k7bojj71t1o8" path="res://sprites/fryer.png" id="2_74pln"]
+[ext_resource type="Script" path="res://scripts/ShopItem.gd" id="2_hbdqq"]
+[ext_resource type="Texture2D" uid="uid://bb0m871d8tmhl" path="res://sprites/coin-icon.png" id="3_tvagq"]
+[ext_resource type="Script" path="res://scripts/ShopItemId.gd" id="4_6rx7v"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_kont5"]
+font_color = Color(0.427451, 0.427451, 0.427451, 1)
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_yc6j8"]
+font_color = Color(0.976471, 0.760784, 0.168627, 1)
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[node name="ShopItem" type="HBoxContainer"]
+custom_minimum_size = Vector2(345, 0)
+size_flags_vertical = 3
+theme = ExtResource("1_24qwi")
+script = ExtResource("2_hbdqq")
+
+[node name="ItemPicBG" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_2wmwl")
+
+[node name="ItemPic" type="TextureRect" parent="ItemPicBG"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_74pln")
+stretch_mode = 3
+
+[node name="AllDescriptionNLine" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="AllDescription" type="HBoxContainer" parent="AllDescriptionNLine"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="NameNPrice" type="VBoxContainer" parent="AllDescriptionNLine/AllDescription"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+theme_override_constants/separation = -4
+alignment = 1
+
+[node name="ItemName" type="Label" parent="AllDescriptionNLine/AllDescription/NameNPrice"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Extra Fryer"
+vertical_alignment = 1
+
+[node name="DEBUG_itemID" type="Label" parent="AllDescriptionNLine/AllDescription/NameNPrice"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "extra-fryer-1"
+label_settings = SubResource("LabelSettings_kont5")
+vertical_alignment = 1
+script = ExtResource("4_6rx7v")
+
+[node name="PriceContainer" type="HBoxContainer" parent="AllDescriptionNLine/AllDescription/NameNPrice"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="AllDescriptionNLine/AllDescription/NameNPrice/PriceContainer"]
+layout_mode = 2
+texture = ExtResource("3_tvagq")
+stretch_mode = 3
+
+[node name="ItemPrice" type="Label" parent="AllDescriptionNLine/AllDescription/NameNPrice/PriceContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "3"
+label_settings = SubResource("LabelSettings_yc6j8")
+vertical_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="AllDescriptionNLine/AllDescription"]
+layout_mode = 2
+
+[node name="Description" type="RichTextLabel" parent="AllDescriptionNLine/AllDescription/CenterContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+bbcode_enabled = true
+text = "[center][color=#ccc]Serve more customers faster with an extra fryer!"
+fit_content = true
+
+[node name="BuyButton" type="Button" parent="AllDescriptionNLine/AllDescription"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme_override_constants/h_separation = 3
+text = "Buy!"
+icon = ExtResource("3_tvagq")
+
+[node name="HSeparator" type="HSeparator" parent="AllDescriptionNLine"]
+layout_mode = 2

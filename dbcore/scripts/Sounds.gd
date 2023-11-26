@@ -31,7 +31,11 @@ var sounds = {}
 func _ready() -> void:
 	Game.SOUNDZ = self
 	
-	var path = OS.get_executable_path().get_base_dir() + "/sounds/"
+	var path
+	if OS.has_feature("editor"):
+		path = "res://sounds/"
+	else:
+		path = OS.get_executable_path().get_base_dir() + "/sounds/"
 	var sound_names = list_files_in_directory(path)
 	for sound_name in sound_names:
 		var sound = load(path + sound_name)

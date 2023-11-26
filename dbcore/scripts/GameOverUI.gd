@@ -44,15 +44,12 @@ func _ready() -> void:
 
 func on_play_pressed():
 	get_tree().reload_current_scene()
-	Game.SOUNDZ.play_sound("button_press")	
 	Game.reset_data()
 
 func on_itch_pressed():
-	Game.SOUNDZ.play_sound("button_press")	
 	OS.shell_open("https://czarnicholas.itch.io/")
 
 func on_credits_pressed():
-	Game.SOUNDZ.play_sound("button_press")	
 	await get_tree().create_timer(0.5).timeout
 	Game.SOUNDZ.kill_all_sounds()
 	get_tree().change_scene_to_file("res://scenes/Credits.tscn")

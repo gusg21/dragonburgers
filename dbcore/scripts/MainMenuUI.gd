@@ -12,7 +12,8 @@ func get_all_children(in_node,arr:=[]):
 	return arr
 
 func _ready() -> void:
-	if Game.IS_REPLAY:
+	if Game.IS_REPLAY or OS.has_feature("editor"):
+		Game.MODE = "waiting"
 		queue_free()
 		return
 	
@@ -28,7 +29,6 @@ func _ready() -> void:
 	visible = true
 
 func next_card():
-	Game.SOUNDZ.play_sound("button_press")
 	
 	fade_out()
 	index -= 1

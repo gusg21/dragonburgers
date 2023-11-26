@@ -15,8 +15,8 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	$RatingLabel.text = ("%.2f" % Game.RATING) + "/5"
-	var low = Game.RATING < 0.15 and not Game.is_mode_pausey()
-	$/root/Gameplay/UI/Vignette.visible = low
+	var low = Game.RATING < 0.75 and not Game.is_mode_pausey()
+	$Vignette.visible = low
 	if low:
 		position = o_pos + Vector2(randf_range(-2.0, 2.0), randf_range(-2.0, 2.0))
 	else:

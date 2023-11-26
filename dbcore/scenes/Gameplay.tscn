@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://ddft1qobgipf2"]
+[gd_scene load_steps=103 format=3 uid="uid://ddft1qobgipf2"]
 
 [ext_resource type="Texture2D" uid="uid://x3ml8gduccqc" path="res://sprites/tavern.png" id="1_jm4dr"]
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_kfxtb"]
@@ -51,7 +51,26 @@
 [ext_resource type="Texture2D" uid="uid://waf4hairf36p" path="res://sprites/tut-wasd.png" id="43_bsglm"]
 [ext_resource type="Texture2D" uid="uid://ced3x43xmpbli" path="res://sprites/next-icon.png" id="43_u4cqc"]
 [ext_resource type="Texture2D" uid="uid://d1gqnatgf8key" path="res://sprites/tut-mouse.png" id="44_g7t41"]
+[ext_resource type="Script" path="res://scripts/PauseButton.gd" id="45_nori5"]
 [ext_resource type="PackedScene" uid="uid://boqrmogi78b6m" path="res://scenes/SoundManager.tscn" id="50_u67th"]
+[ext_resource type="Script" path="res://scripts/EditorDebugUI.gd" id="52_x8708"]
+[ext_resource type="Theme" uid="uid://bdln3yhjj5u08" path="res://themes/hud.tres" id="53_bq204"]
+[ext_resource type="PackedScene" uid="uid://b84tx2ihuuv74" path="res://scenes/Coin.tscn" id="53_knxu7"]
+[ext_resource type="Texture2D" uid="uid://bmrpe32xpubms" path="res://sprites/shop-text.png" id="54_br8t1"]
+[ext_resource type="Script" path="res://scripts/ShopButton.gd" id="55_cfjku"]
+[ext_resource type="Script" path="res://scripts/ShopUI.gd" id="56_pcn05"]
+[ext_resource type="PackedScene" uid="uid://bxg67r0vsch0d" path="res://scenes/ShopItem.tscn" id="57_vlg7s"]
+[ext_resource type="Texture2D" uid="uid://bvj1ylyymxbgv" path="res://sprites/pause-icon.png" id="58_2qlpx"]
+[ext_resource type="Texture2D" uid="uid://bykld578s8dvt" path="res://sprites/button-purple.png" id="58_ql8pd"]
+[ext_resource type="Texture2D" uid="uid://d18gppaw3635o" path="res://sprites/button-purple-hover.png" id="59_15v2y"]
+[ext_resource type="Texture2D" uid="uid://cg25ininb2bua" path="res://sprites/button-purple-pressed.png" id="60_6omn3"]
+[ext_resource type="Script" path="res://scripts/PauseUI.gd" id="63_jl138"]
+[ext_resource type="Texture2D" uid="uid://dymjljl6fxxm4" path="res://sprites/close-icon.png" id="63_ph4jb"]
+[ext_resource type="Texture2D" uid="uid://bx4er180s45m" path="res://sprites/music-icon.png" id="63_xjag2"]
+[ext_resource type="Script" path="res://scripts/Options.gd" id="64_nfxlx"]
+[ext_resource type="Texture2D" uid="uid://clmy85aucdx3e" path="res://sprites/sound-icon.png" id="65_f34sx"]
+[ext_resource type="Texture2D" uid="uid://ci6yng7t5alao" path="res://sprites/exclam-icon.png" id="67_po8rq"]
+[ext_resource type="FontFile" uid="uid://cmbitklfeu1cr" path="res://fonts/m3x6.ttf" id="67_tgct2"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_odcoo"]
 
@@ -101,6 +120,39 @@ size = Vector2(38, 36)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_837km"]
 size = Vector2(27, 32)
 
+[sub_resource type="InputEventAction" id="InputEventAction_tl3lf"]
+action = &"open_shop"
+
+[sub_resource type="Shortcut" id="Shortcut_xiebx"]
+events = [SubResource("InputEventAction_tl3lf")]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_toe44"]
+texture = ExtResource("58_ql8pd")
+texture_margin_left = 7.0
+texture_margin_top = 7.0
+texture_margin_right = 7.0
+texture_margin_bottom = 7.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hewjp"]
+texture = ExtResource("59_15v2y")
+texture_margin_left = 7.0
+texture_margin_top = 7.0
+texture_margin_right = 7.0
+texture_margin_bottom = 7.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hlctp"]
+texture = ExtResource("60_6omn3")
+texture_margin_left = 7.0
+texture_margin_top = 7.0
+texture_margin_right = 7.0
+texture_margin_bottom = 7.0
+
+[sub_resource type="InputEventAction" id="InputEventAction_6dyw7"]
+action = &"pause_game"
+
+[sub_resource type="Shortcut" id="Shortcut_xmlq8"]
+events = [SubResource("InputEventAction_6dyw7")]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ueve5"]
 bg_color = Color(0.180392, 0.133333, 0.184314, 1)
 border_width_left = 2
@@ -110,6 +162,49 @@ border_width_bottom = 2
 border_color = Color(0.780392, 0.862745, 0.815686, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lc38j"]
+
+[sub_resource type="Gradient" id="Gradient_7ck88"]
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.576471)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qdftx"]
+gradient = SubResource("Gradient_7ck88")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_ryh4c"]
+font = ExtResource("9_xdmpx")
+font_size = 22
+
+[sub_resource type="InputEventAction" id="InputEventAction_f2pru"]
+action = &"ui_cancel"
+pressed = true
+
+[sub_resource type="Shortcut" id="Shortcut_xpujm"]
+events = [SubResource("InputEventAction_f2pru")]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wt0f3"]
+bg_color = Color(0.243137, 0.207843, 0.27451, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.87451, 0.87451, 0.87451, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h7tvb"]
+bg_color = Color(0.835294, 0.878431, 0.294118, 1)
+corner_radius_top_left = 2
+corner_radius_bottom_left = 2
+anti_aliasing = false
 
 [node name="Gameplay" type="Node2D"]
 
@@ -373,21 +468,22 @@ position = Vector2(-1, -33)
 shape = SubResource("RectangleShape2D_j7n44")
 
 [node name="Fryer" type="Node2D" parent="World"]
-z_index = 1
-position = Vector2(-51, 81)
+position = Vector2(-51, 133)
 script = ExtResource("23_7phpd")
 
 [node name="Graphics" type="Sprite2D" parent="World/Fryer"]
+position = Vector2(1, -52)
 texture = ExtResource("23_3prof")
 
 [node name="Area2D" type="Area2D" parent="World/Fryer"]
+position = Vector2(1, -52)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Fryer/Area2D"]
 position = Vector2(1, 9)
 shape = SubResource("RectangleShape2D_837km")
 
 [node name="Pointer" type="Sprite2D" parent="World/Fryer"]
-position = Vector2(0, -15)
+position = Vector2(1, -67)
 texture = ExtResource("8_4jyph")
 
 [node name="Sprite2D" type="Sprite2D" parent="World/Fryer/Pointer"]
@@ -396,51 +492,42 @@ texture = ExtResource("25_ule58")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="UI" type="CanvasLayer" parent="."]
-layer = 2
-offset = Vector2(-320, -180)
-transform = Transform2D(1, 0, 0, 1, -320, -180)
-follow_viewport_enabled = true
+[node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="Vignette" type="Sprite2D" parent="UI"]
-visible = false
-texture = ExtResource("28_dhehu")
-centered = false
-
-[node name="WaitingUI" type="Sprite2D" parent="UI"]
+[node name="WaitingUI" type="Sprite2D" parent="HUD"]
 position = Vector2(320, 24)
 texture = ExtResource("23_to0m5")
 script = ExtResource("24_wnvf0")
 
-[node name="RatingUI" type="Sprite2D" parent="UI"]
+[node name="RatingUI" type="Sprite2D" parent="HUD"]
 position = Vector2(560, 24)
 texture = ExtResource("7_bbc4i")
 script = ExtResource("19_82f51")
 
-[node name="Fires" type="Node2D" parent="UI/RatingUI"]
+[node name="Fires" type="Node2D" parent="HUD/RatingUI"]
 
-[node name="Fire" type="Sprite2D" parent="UI/RatingUI/Fires"]
+[node name="Fire" type="Sprite2D" parent="HUD/RatingUI/Fires"]
 position = Vector2(68, -7)
 texture = ExtResource("19_bbgbc")
 region_rect = Rect2(8, 0, 10, 26)
 
-[node name="Fire2" type="Sprite2D" parent="UI/RatingUI/Fires"]
+[node name="Fire2" type="Sprite2D" parent="HUD/RatingUI/Fires"]
 position = Vector2(44, -7)
 texture = ExtResource("19_bbgbc")
 
-[node name="Fire3" type="Sprite2D" parent="UI/RatingUI/Fires"]
+[node name="Fire3" type="Sprite2D" parent="HUD/RatingUI/Fires"]
 position = Vector2(20, -7)
 texture = ExtResource("19_bbgbc")
 
-[node name="Fire4" type="Sprite2D" parent="UI/RatingUI/Fires"]
+[node name="Fire4" type="Sprite2D" parent="HUD/RatingUI/Fires"]
 position = Vector2(-4, -7)
 texture = ExtResource("19_bbgbc")
 
-[node name="Fire5" type="Sprite2D" parent="UI/RatingUI/Fires"]
+[node name="Fire5" type="Sprite2D" parent="HUD/RatingUI/Fires"]
 position = Vector2(-28, -7)
 texture = ExtResource("19_bbgbc")
 
-[node name="RatingLabel" type="Label" parent="UI/RatingUI"]
+[node name="RatingLabel" type="Label" parent="HUD/RatingUI"]
 offset_left = 15.0
 offset_top = 7.0
 offset_right = 78.0
@@ -449,25 +536,82 @@ theme = ExtResource("21_nad00")
 text = "3.99/5"
 horizontal_alignment = 2
 
-[node name="WaveTimeUI" type="Sprite2D" parent="UI"]
+[node name="Vignette" type="Sprite2D" parent="HUD/RatingUI"]
+visible = false
+position = Vector2(-560, -24)
+texture = ExtResource("28_dhehu")
+centered = false
+
+[node name="WaveTimeUI" type="Sprite2D" parent="HUD"]
 texture = ExtResource("30_4ph18")
 centered = false
 script = ExtResource("31_elflq")
 
-[node name="Bar" type="Sprite2D" parent="UI/WaveTimeUI"]
+[node name="Bar" type="Sprite2D" parent="HUD/WaveTimeUI"]
 position = Vector2(39, 3)
 texture = ExtResource("31_fys85")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 114, 18)
 
-[node name="WaveNum" type="Label" parent="UI/WaveTimeUI"]
-offset_left = 78.0
-offset_top = 22.0
-offset_right = 118.0
-offset_bottom = 45.0
+[node name="WaveNum" type="Label" parent="HUD/WaveTimeUI"]
+offset_left = 73.0
+offset_top = 23.0
+offset_right = 113.0
+offset_bottom = 46.0
 theme = ExtResource("21_nad00")
+theme_override_colors/font_color = Color(0.560784, 0.827451, 1, 1)
 text = "2"
+
+[node name="Money" type="Label" parent="HUD/WaveTimeUI"]
+offset_left = 73.0
+offset_top = 32.0
+offset_right = 113.0
+offset_bottom = 55.0
+theme = ExtResource("21_nad00")
+theme_override_colors/font_color = Color(0.976471, 0.760784, 0.168627, 1)
+text = "2"
+
+[node name="BottomLeftButtons" type="HBoxContainer" parent="HUD"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -64.0
+offset_right = 112.0
+grow_vertical = 0
+theme = ExtResource("53_bq204")
+theme_type_variation = &"PauseButton"
+
+[node name="ShopButton" type="Button" parent="HUD/BottomLeftButtons"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+tooltip_text = "Open the Shop"
+shortcut = SubResource("Shortcut_xiebx")
+icon = ExtResource("54_br8t1")
+alignment = 0
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+script = ExtResource("55_cfjku")
+
+[node name="PauseButton" type="Button" parent="HUD/BottomLeftButtons"]
+custom_minimum_size = Vector2(44, 44)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+tooltip_text = "Pause the Game"
+theme_override_styles/normal = SubResource("StyleBoxTexture_toe44")
+theme_override_styles/hover = SubResource("StyleBoxTexture_hewjp")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_hlctp")
+shortcut = SubResource("Shortcut_xmlq8")
+icon = ExtResource("58_2qlpx")
+script = ExtResource("45_nori5")
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 2
+offset = Vector2(-320, -180)
+transform = Transform2D(1, 0, 0, 1, -320, -180)
+follow_viewport_enabled = true
 
 [node name="GameOverUI" type="MarginContainer" parent="UI"]
 visible = false
@@ -551,6 +695,7 @@ text = "Credits"
 icon = ExtResource("37_wkgty")
 
 [node name="MainMenuUI" type="MarginContainer" parent="UI"]
+visible = false
 z_index = 10
 anchors_preset = 15
 anchor_right = 1.0
@@ -560,7 +705,6 @@ grow_vertical = 2
 script = ExtResource("40_kvxy5")
 
 [node name="Tut4" type="Panel" parent="UI/MainMenuUI"]
-visible = false
 layout_mode = 2
 theme = ExtResource("21_nad00")
 theme_override_styles/panel = SubResource("StyleBoxFlat_ueve5")
@@ -625,7 +769,6 @@ text = "Start Game!"
 icon = ExtResource("27_pxvuh")
 
 [node name="Tut3" type="Panel" parent="UI/MainMenuUI"]
-visible = false
 layout_mode = 2
 theme = ExtResource("21_nad00")
 theme_override_styles/panel = SubResource("StyleBoxFlat_ueve5")
@@ -675,7 +818,6 @@ text = "Next"
 icon = ExtResource("43_u4cqc")
 
 [node name="Tut2" type="Panel" parent="UI/MainMenuUI"]
-visible = false
 layout_mode = 2
 theme = ExtResource("21_nad00")
 theme_override_styles/panel = SubResource("StyleBoxFlat_ueve5")
@@ -737,7 +879,6 @@ text = "Next"
 icon = ExtResource("43_u4cqc")
 
 [node name="Tut1" type="Panel" parent="UI/MainMenuUI"]
-visible = false
 layout_mode = 2
 theme = ExtResource("21_nad00")
 theme_override_styles/panel = SubResource("StyleBoxFlat_ueve5")
@@ -815,7 +956,6 @@ text = "Next"
 icon = ExtResource("43_u4cqc")
 
 [node name="FrontCard" type="Panel" parent="UI/MainMenuUI"]
-visible = false
 layout_mode = 2
 theme = ExtResource("21_nad00")
 theme_override_styles/panel = SubResource("StyleBoxFlat_ueve5")
@@ -854,4 +994,235 @@ theme_override_font_sizes/font_size = 20
 text = "Play!"
 icon = ExtResource("27_pxvuh")
 
+[node name="EditorDebugUI" type="Panel" parent="UI"]
+visible = false
+z_index = 4096
+z_as_relative = false
+custom_minimum_size = Vector2(200, 200)
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("52_x8708")
+
+[node name="Box" type="VBoxContainer" parent="UI/EditorDebugUI"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="Label" type="RichTextLabel" parent="UI/EditorDebugUI/Box"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 8
+bbcode_enabled = true
+autowrap_mode = 0
+
+[node name="ShopUI" type="CenterContainer" parent="UI"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("56_pcn05")
+
+[node name="TextureRect" type="TextureRect" parent="UI/ShopUI"]
+custom_minimum_size = Vector2(640, 360)
+layout_mode = 2
+texture = SubResource("GradientTexture2D_qdftx")
+
+[node name="ShopPanel" type="MarginContainer" parent="UI/ShopUI"]
+custom_minimum_size = Vector2(400, 300)
+layout_mode = 2
+theme = ExtResource("21_nad00")
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="Panel" type="Panel" parent="UI/ShopUI/ShopPanel"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/ShopUI/ShopPanel/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ShopUI/ShopPanel/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="UI/ShopUI/ShopPanel/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+text = "SHOP"
+label_settings = SubResource("LabelSettings_ryh4c")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ForSale" type="Panel" parent="UI/ShopUI/ShopPanel/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/ShopUI/ShopPanel/Panel/MarginContainer/VBoxContainer/ForSale"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Scroll" type="ScrollContainer" parent="UI/ShopUI/ShopPanel/Panel/MarginContainer/VBoxContainer/ForSale/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ShopItemsContainer" type="VBoxContainer" parent="UI/ShopUI/ShopPanel/Panel/MarginContainer/VBoxContainer/ForSale/MarginContainer/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="ShopItem" parent="UI/ShopUI/ShopPanel/Panel/MarginContainer/VBoxContainer/ForSale/MarginContainer/Scroll/ShopItemsContainer" instance=ExtResource("57_vlg7s")]
+layout_mode = 2
+
+[node name="Quit" type="Button" parent="UI/ShopUI/ShopPanel/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Close the shop and return to the game!"
+shortcut = SubResource("Shortcut_xpujm")
+text = "Return To Game"
+icon = ExtResource("43_u4cqc")
+
+[node name="PauseUI" type="CenterContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("63_jl138")
+
+[node name="TextureRect" type="TextureRect" parent="UI/PauseUI"]
+custom_minimum_size = Vector2(640, 360)
+layout_mode = 2
+texture = SubResource("GradientTexture2D_qdftx")
+
+[node name="ShopPanel" type="MarginContainer" parent="UI/PauseUI"]
+custom_minimum_size = Vector2(200, 240)
+layout_mode = 2
+theme = ExtResource("21_nad00")
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="Panel" type="Panel" parent="UI/PauseUI/ShopPanel"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/PauseUI/ShopPanel/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PauseUI/ShopPanel/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="UI/PauseUI/ShopPanel/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+text = "PAUSED
+"
+label_settings = SubResource("LabelSettings_ryh4c")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Options" type="VBoxContainer" parent="UI/PauseUI/ShopPanel/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("53_bq204")
+script = ExtResource("64_nfxlx")
+
+[node name="MusicToggle" type="CheckButton" parent="UI/PauseUI/ShopPanel/Panel/MarginContainer/VBoxContainer/Options"]
+layout_mode = 2
+tooltip_text = "Turn on or off the music and ambient sounds"
+button_pressed = true
+text = "Music"
+icon = ExtResource("63_xjag2")
+
+[node name="SoundToggle" type="CheckButton" parent="UI/PauseUI/ShopPanel/Panel/MarginContainer/VBoxContainer/Options"]
+layout_mode = 2
+tooltip_text = "Turn on or off the sound effects"
+button_pressed = true
+text = "SFX"
+icon = ExtResource("65_f34sx")
+
+[node name="Buttons" type="VBoxContainer" parent="UI/PauseUI/ShopPanel/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+alignment = 2
+
+[node name="RestartProgress" type="ProgressBar" parent="UI/PauseUI/ShopPanel/Panel/MarginContainer/VBoxContainer/Buttons"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("67_tgct2")
+theme_override_styles/background = SubResource("StyleBoxFlat_wt0f3")
+theme_override_styles/fill = SubResource("StyleBoxFlat_h7tvb")
+value = 50.0
+show_percentage = false
+
+[node name="Restart" type="Button" parent="UI/PauseUI/ShopPanel/Panel/MarginContainer/VBoxContainer/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Close the game entirely. Toodles!"
+text = "Restart Run
+"
+icon = ExtResource("67_po8rq")
+
+[node name="Exit" type="Button" parent="UI/PauseUI/ShopPanel/Panel/MarginContainer/VBoxContainer/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Close the game entirely. Toodles!"
+text = "Exit to Desktop
+"
+icon = ExtResource("63_ph4jb")
+
+[node name="Return" type="Button" parent="UI/PauseUI/ShopPanel/Panel/MarginContainer/VBoxContainer/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Unpause and return to the game"
+shortcut = SubResource("Shortcut_xpujm")
+text = "Return To Game"
+icon = ExtResource("43_u4cqc")
+
 [node name="SoundManager" parent="." instance=ExtResource("50_u67th")]
+
+[node name="Coin" parent="." instance=ExtResource("53_knxu7")]
+position = Vector2(-46, -50)

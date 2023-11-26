@@ -3,10 +3,19 @@ extends Node
 signal mode_changed(new_mode: String)
 
 # data
-var MODE = "menu":
+var MODE = "":
 	set(new_mode):
 		emit_signal("mode_changed", new_mode)
-		MODE = new_mode
+		var index = MODE_STACK.size()-1
+		if MODE_STACK.size() > 0: 
+			MODE_STACK[index] = new_mode
+		else:
+			MODE_STACK.append(new_mode)
+	get:
+		if MODE_STACK.size() == 0: return ""
+		
+		return MODE_STACK[MODE_STACK.size()-1]
+var MODE_STACK = []
 var DEBUG = true
 var PLAYER: Node2D
 var WORLD: Node2D
@@ -26,12 +35,24 @@ var WAVE_NUMBER = 0
 var WAIT_TIME = 15
 var DOOR_POSITION: Vector2 = Vector2()
 var HIGHSCORE_TIME = 0
+var MONEY = 0
 var CUSTOMER_POSITIONS = {
 	0: false, 1: false, 2: false
 }
-var RATING = 5.0
+var RATING = 5.0:
+	set(val):
+		RATING = clampf(val, 0, 5)
 var ALIVE_HUMAN_COUNT = 0
 var IS_REPLAY = false
+var SHOP_ITEMS = [
+	{
+		id = "extra-fryer-1",
+		texture = preload("res://sprites/fryer-highlight.png"),
+		name = "Extra Fryer",
+		cost = 3,
+		description = "Serve more customers with an extra fryer!"
+	}
+]
 
 func reset_data():
 	HIDING_SPOTS = []
@@ -52,7 +73,8 @@ func reset_data():
 	RATING = 5.0
 	ALIVE_HUMAN_COUNT = 0
 	IS_REPLAY = true
-	MODE = "waiting"
+	MONEY = 0
+	MODE_STACK = ["waiting"]
 
 func has_open_spot():
 	return not (CUSTOMER_POSITIONS[0] and CUSTOMER_POSITIONS[1] and CUSTOMER_POSITIONS[2])
@@ -64,11 +86,13 @@ func get_open_spot():
 			return i
 
 # constants
+const PAUSEY_MODES = ["pause", "game_over", "menu", "shopping"]
 const SAVE_FILE_NAME = "dragonz.gus"
 const MAX_WAVE_TIME = 90.0
 const SECONDS_TO_SAD = 40.0
 const INGREDIENT_SCENE = preload("res://scenes/Ingredient.tscn")
 const NUMBER_POP_SCENE = preload("res://scenes/NumberPop.tscn")
+const COIN_SCENE = preload("res://scenes/Coin.tscn")
 const FOOD_TYPES: Dictionary = {
 	"burger": {
 		texture = preload("res://sprites/burger.png")
@@ -103,17 +127,14 @@ func _exit_tree() -> void:
 	save.store_line(str(HIGHSCORE_TIME))
 
 func is_mode_pausey():
-	return MODE in ["pause", "game_over", "menu"]
+	return MODE in PAUSEY_MODES
+	
+func push_mode(new_mode):
+	MODE_STACK.append(new_mode)
+	emit_signal("mode_changed", MODE)
+
+func pop_mode():
+	MODE_STACK.pop_back()
+	emit_signal("mode_changed", MODE)
 
 func get_time(): return Time.get_ticks_msec() / 1000.0
-
-var _prev_mode = ""
-func _input(event):
-	if event is InputEventKey:
-		if event.is_action_pressed("pause_game"):
-			if DEBUG:
-				if is_mode_pausey():
-					MODE = _prev_mode
-				else:
-					_prev_mode = MODE
-					MODE = "pause"
