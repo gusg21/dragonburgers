@@ -12,22 +12,25 @@ size = Vector2(26, 30)
 script = ExtResource("2_uqs7w")
 
 [node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -42)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(2, -6)
 shape = SubResource("RectangleShape2D_62ot7")
 
 [node name="Graphics" type="Sprite2D" parent="."]
+position = Vector2(0, -42)
 texture = ExtResource("1_oo6hw")
 offset = Vector2(0, -16)
 
 [node name="Indicator" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(9, -4)
+position = Vector2(9, -46)
 texture = ExtResource("3_2gxux")
 hframes = 2
 frame = 1
 
 [node name="Burning" type="Sprite2D" parent="."]
-position = Vector2(0, -19)
+visible = false
+position = Vector2(0, -61)
 texture = ExtResource("4_h8xod")

@@ -5,14 +5,14 @@ class_name Sounds
 @onready var SOUND_PLAYER_SCENE = preload("res://scenes/SoundPlayer.tscn")
 
 func list_files_in_directory(path):
-	print(path)
+#	print(path)
 	var files = []
 	var dir = DirAccess.open(path)
 	dir.list_dir_begin()
 
 	while true:
 		var file = dir.get_next()
-		print("file %s" % file)
+#		print("file %s" % file)
 		if file == "":
 			break
 		elif file.begins_with("."):

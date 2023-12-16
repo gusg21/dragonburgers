@@ -1,4 +1,4 @@
-[gd_scene load_steps=103 format=3 uid="uid://ddft1qobgipf2"]
+[gd_scene load_steps=104 format=3 uid="uid://ddft1qobgipf2"]
 
 [ext_resource type="Texture2D" uid="uid://x3ml8gduccqc" path="res://sprites/tavern.png" id="1_jm4dr"]
 [ext_resource type="Script" path="res://scripts/World.gd" id="1_kfxtb"]
@@ -28,11 +28,13 @@
 [ext_resource type="Texture2D" uid="uid://prvjvvbggg82" path="res://sprites/trashcan.png" id="21_2287w"]
 [ext_resource type="Script" path="res://scripts/Trash.gd" id="21_k6d4l"]
 [ext_resource type="Theme" uid="uid://cx0aoqmopoeap" path="res://themes/general_theme.tres" id="21_nad00"]
-[ext_resource type="Texture2D" uid="uid://k7bojj71t1o8" path="res://sprites/fryer.png" id="23_3prof"]
-[ext_resource type="Script" path="res://scripts/Fryer.gd" id="23_7phpd"]
 [ext_resource type="Texture2D" uid="uid://ckvp8m83y6veg" path="res://sprites/waiting.png" id="23_to0m5"]
 [ext_resource type="Script" path="res://scripts/WaitingUI.gd" id="24_wnvf0"]
-[ext_resource type="Texture2D" uid="uid://suxdorgsc3a1" path="res://sprites/fries.png" id="25_ule58"]
+[ext_resource type="Texture2D" uid="uid://pjfk6yonglq4" path="res://sprites/coin-pile.png" id="26_2vvy3"]
+[ext_resource type="Script" path="res://scripts/Fryers.gd" id="26_nmier"]
+[ext_resource type="PackedScene" uid="uid://dh15e1lq8x6iq" path="res://scenes/fryer.tscn" id="26_rx0pp"]
+[ext_resource type="Script" path="res://scripts/DecorCoinPile.gd" id="27_3f2pb"]
+[ext_resource type="Script" path="res://scripts/PattyMakers.gd" id="27_585uk"]
 [ext_resource type="Script" path="res://scripts/GameOverUI.gd" id="27_guif6"]
 [ext_resource type="Texture2D" uid="uid://tspmogb3muyo" path="res://sprites/play-icon.png" id="27_pxvuh"]
 [ext_resource type="Texture2D" uid="uid://dw7owhbie3rxg" path="res://sprites/vignette.png" id="28_dhehu"]
@@ -55,7 +57,6 @@
 [ext_resource type="PackedScene" uid="uid://boqrmogi78b6m" path="res://scenes/SoundManager.tscn" id="50_u67th"]
 [ext_resource type="Script" path="res://scripts/EditorDebugUI.gd" id="52_x8708"]
 [ext_resource type="Theme" uid="uid://bdln3yhjj5u08" path="res://themes/hud.tres" id="53_bq204"]
-[ext_resource type="PackedScene" uid="uid://b84tx2ihuuv74" path="res://scenes/Coin.tscn" id="53_knxu7"]
 [ext_resource type="Texture2D" uid="uid://bmrpe32xpubms" path="res://sprites/shop-text.png" id="54_br8t1"]
 [ext_resource type="Script" path="res://scripts/ShopButton.gd" id="55_cfjku"]
 [ext_resource type="Script" path="res://scripts/ShopUI.gd" id="56_pcn05"]
@@ -69,6 +70,7 @@
 [ext_resource type="Texture2D" uid="uid://bx4er180s45m" path="res://sprites/music-icon.png" id="63_xjag2"]
 [ext_resource type="Script" path="res://scripts/Options.gd" id="64_nfxlx"]
 [ext_resource type="Texture2D" uid="uid://clmy85aucdx3e" path="res://sprites/sound-icon.png" id="65_f34sx"]
+[ext_resource type="Texture2D" uid="uid://7v5mx8rcrm21" path="res://sprites/fullscreen-icon.png" id="67_8gjfm"]
 [ext_resource type="Texture2D" uid="uid://ci6yng7t5alao" path="res://sprites/exclam-icon.png" id="67_po8rq"]
 [ext_resource type="FontFile" uid="uid://cmbitklfeu1cr" path="res://fonts/m3x6.ttf" id="67_tgct2"]
 
@@ -116,9 +118,6 @@ size = Vector2(33, 22)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j7n44"]
 size = Vector2(38, 36)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_837km"]
-size = Vector2(27, 32)
 
 [sub_resource type="InputEventAction" id="InputEventAction_tl3lf"]
 action = &"open_shop"
@@ -208,142 +207,135 @@ anti_aliasing = false
 
 [node name="Gameplay" type="Node2D"]
 
-[node name="World" type="Node2D" parent="."]
+[node name="World" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="World" type="Node2D" parent="World"]
 y_sort_enabled = true
 script = ExtResource("1_kfxtb")
 
-[node name="CustomerSpawner" type="Node2D" parent="World"]
+[node name="CustomerSpawner" type="Node2D" parent="World/World"]
 position = Vector2(-1, -94)
 script = ExtResource("1_lv00b")
 
-[node name="CounterPos1" type="Node2D" parent="World/CustomerSpawner"]
+[node name="CounterPos1" type="Node2D" parent="World/World/CustomerSpawner"]
 position = Vector2(-67, 73)
 
-[node name="CounterPos2" type="Node2D" parent="World/CustomerSpawner"]
+[node name="CounterPos2" type="Node2D" parent="World/World/CustomerSpawner"]
 position = Vector2(1, 73)
 
-[node name="CounterPos3" type="Node2D" parent="World/CustomerSpawner"]
+[node name="CounterPos3" type="Node2D" parent="World/World/CustomerSpawner"]
 position = Vector2(72, 73)
 
-[node name="Background" type="Sprite2D" parent="World"]
+[node name="Background" type="Sprite2D" parent="World/World"]
 z_index = -10
 texture = ExtResource("1_jm4dr")
 
-[node name="Body" type="StaticBody2D" parent="World/Background"]
+[node name="Body" type="StaticBody2D" parent="World/World/Background"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Background/Body"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/World/Background/Body"]
 position = Vector2(-1, 166)
 shape = SubResource("WorldBoundaryShape2D_odcoo")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="World/Background/Body"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="World/World/Background/Body"]
 position = Vector2(-1, -103)
 shape = SubResource("WorldBoundaryShape2D_3otig")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="World/Background/Body"]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="World/World/Background/Body"]
 position = Vector2(306, 48)
 shape = SubResource("WorldBoundaryShape2D_vjbtv")
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="World/Background/Body"]
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="World/World/Background/Body"]
 position = Vector2(-306, 48)
 shape = SubResource("WorldBoundaryShape2D_o2pa1")
 
-[node name="Flashes" type="Node2D" parent="World/Background"]
+[node name="Flashes" type="Node2D" parent="World/World/Background"]
 script = ExtResource("4_n4e73")
 
-[node name="WindowFlash" type="Sprite2D" parent="World/Background/Flashes"]
+[node name="WindowFlash" type="Sprite2D" parent="World/World/Background/Flashes"]
 position = Vector2(-250, -130)
 texture = ExtResource("4_abiee")
 
-[node name="WindowFlash2" type="Sprite2D" parent="World/Background/Flashes"]
+[node name="WindowFlash2" type="Sprite2D" parent="World/World/Background/Flashes"]
 position = Vector2(-128, -130)
 texture = ExtResource("4_abiee")
 
-[node name="WindowFlash3" type="Sprite2D" parent="World/Background/Flashes"]
+[node name="WindowFlash3" type="Sprite2D" parent="World/World/Background/Flashes"]
 position = Vector2(127, -130)
 texture = ExtResource("4_abiee")
 
-[node name="WindowFlash4" type="Sprite2D" parent="World/Background/Flashes"]
+[node name="WindowFlash4" type="Sprite2D" parent="World/World/Background/Flashes"]
 position = Vector2(249, -130)
 texture = ExtResource("4_abiee")
 
-[node name="PlayerDragon" parent="World" instance=ExtResource("2_f088m")]
+[node name="PlayerDragon" parent="World/World" instance=ExtResource("2_f088m")]
 position = Vector2(0, 65)
 collision_layer = 12
 
-[node name="Table" parent="World" instance=ExtResource("4_leym2")]
+[node name="Table" parent="World/World" instance=ExtResource("4_leym2")]
 position = Vector2(268, -23)
 
-[node name="Table2" parent="World" instance=ExtResource("4_leym2")]
+[node name="Table2" parent="World/World" instance=ExtResource("4_leym2")]
 position = Vector2(268, 126)
 
-[node name="Table3" parent="World" instance=ExtResource("4_leym2")]
+[node name="Table3" parent="World/World" instance=ExtResource("4_leym2")]
 position = Vector2(-266, -23)
 
-[node name="Table4" parent="World" instance=ExtResource("4_leym2")]
+[node name="Table4" parent="World/World" instance=ExtResource("4_leym2")]
 position = Vector2(-266, 126)
 
-[node name="CounterFront" type="StaticBody2D" parent="World"]
+[node name="CounterFront" type="StaticBody2D" parent="World/World"]
 
-[node name="Counter2" type="Sprite2D" parent="World/CounterFront"]
+[node name="Counter2" type="Sprite2D" parent="World/World/CounterFront"]
 position = Vector2(0, 25.5)
 texture = ExtResource("3_ppw52")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/CounterFront"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/World/CounterFront"]
 visible = false
 position = Vector2(0, 10)
 shape = SubResource("RectangleShape2D_mu2pu")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="World/CounterFront"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="World/World/CounterFront"]
 visible = false
 position = Vector2(-85, 69.5)
 shape = SubResource("RectangleShape2D_t0vmv")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="World/CounterFront"]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="World/World/CounterFront"]
 visible = false
 position = Vector2(85, 70)
 shape = SubResource("RectangleShape2D_t0vmv")
 
-[node name="PattyMaker" parent="World" instance=ExtResource("6_bcuv2")]
-position = Vector2(-86, 66)
-
-[node name="PattyMaker2" parent="World" instance=ExtResource("6_bcuv2")]
-position = Vector2(-86, 35)
-
-[node name="PattyMaker3" parent="World" instance=ExtResource("6_bcuv2")]
-visible = false
-position = Vector2(-86, 4)
-
-[node name="Counter-back" type="StaticBody2D" parent="World"]
+[node name="Counter-back" type="StaticBody2D" parent="World/World"]
 position = Vector2(0, 133)
 
-[node name="Counter-back" type="Sprite2D" parent="World/Counter-back"]
+[node name="Counter-back" type="Sprite2D" parent="World/World/Counter-back"]
 texture = ExtResource("4_hj0re")
 offset = Vector2(0, -28)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Counter-back"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/World/Counter-back"]
 visible = false
 position = Vector2(-66, -18)
 shape = SubResource("RectangleShape2D_7cfs5")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="World/Counter-back"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="World/World/Counter-back"]
 visible = false
 position = Vector2(65.5, -18)
 shape = SubResource("RectangleShape2D_7cfs5")
 
-[node name="PeopleContainer" type="StaticBody2D" parent="World"]
+[node name="PeopleContainer" type="StaticBody2D" parent="World/World"]
 position = Vector2(125, 135)
 script = ExtResource("8_qqai4")
 
-[node name="Graphics" type="Sprite2D" parent="World/PeopleContainer"]
+[node name="Graphics" type="Sprite2D" parent="World/World/PeopleContainer"]
 texture = ExtResource("7_4sqcp")
 offset = Vector2(0, -32)
 
-[node name="Pointer" type="Sprite2D" parent="World/PeopleContainer"]
+[node name="Pointer" type="Sprite2D" parent="World/World/PeopleContainer"]
 position = Vector2(0, -59)
 texture = ExtResource("8_4jyph")
 script = ExtResource("9_8ugyp")
 
-[node name="Label" type="Label" parent="World/PeopleContainer/Pointer"]
+[node name="Label" type="Label" parent="World/World/PeopleContainer/Pointer"]
 offset_left = -27.0
 offset_top = -18.0
 offset_right = 28.0
@@ -355,144 +347,154 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("11_5ymx5")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/PeopleContainer"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/World/PeopleContainer"]
 position = Vector2(0, -13.5)
 shape = SubResource("RectangleShape2D_iclbt")
 
-[node name="Area2D" type="Area2D" parent="World/PeopleContainer"]
+[node name="Area2D" type="Area2D" parent="World/World/PeopleContainer"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/PeopleContainer/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/World/PeopleContainer/Area2D"]
 position = Vector2(0, -30.75)
 shape = SubResource("RectangleShape2D_sq10x")
 
-[node name="BreadSource" type="StaticBody2D" parent="World"]
+[node name="BreadSource" type="StaticBody2D" parent="World/World"]
 position = Vector2(125, 100)
 script = ExtResource("15_2sg0v")
 
-[node name="Graphics" type="Sprite2D" parent="World/BreadSource"]
+[node name="Graphics" type="Sprite2D" parent="World/World/BreadSource"]
 texture = ExtResource("16_brwqc")
 offset = Vector2(0, -32)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/BreadSource"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/World/BreadSource"]
 position = Vector2(0, -13.5)
 shape = SubResource("RectangleShape2D_iclbt")
 
-[node name="Area2D" type="Area2D" parent="World/BreadSource"]
+[node name="Area2D" type="Area2D" parent="World/World/BreadSource"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/BreadSource/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/World/BreadSource/Area2D"]
 position = Vector2(0, -47)
 shape = SubResource("RectangleShape2D_3e4ea")
 
-[node name="NavWithTables" type="NavigationRegion2D" parent="World"]
+[node name="NavWithTables" type="NavigationRegion2D" parent="World/World"]
 visible = false
 navigation_polygon = SubResource("NavigationPolygon_0kf8q")
 
-[node name="NavWithoutTables" type="NavigationRegion2D" parent="World"]
+[node name="NavWithoutTables" type="NavigationRegion2D" parent="World/World"]
 visible = false
 navigation_polygon = SubResource("NavigationPolygon_iw0na")
 navigation_layers = 2
 
-[node name="EatInSpots" type="Node2D" parent="World"]
+[node name="EatInSpots" type="Node2D" parent="World/World"]
 script = ExtResource("15_h11hx")
 
-[node name="Spot" type="Node2D" parent="World/EatInSpots"]
+[node name="Spot" type="Node2D" parent="World/World/EatInSpots"]
 position = Vector2(-268, -84)
 
-[node name="Spot2" type="Node2D" parent="World/EatInSpots"]
+[node name="Spot2" type="Node2D" parent="World/World/EatInSpots"]
 position = Vector2(-266, -13)
 
-[node name="Spot3" type="Node2D" parent="World/EatInSpots"]
+[node name="Spot3" type="Node2D" parent="World/World/EatInSpots"]
 position = Vector2(-266, 65)
 
-[node name="Spot4" type="Node2D" parent="World/EatInSpots"]
+[node name="Spot4" type="Node2D" parent="World/World/EatInSpots"]
 position = Vector2(-266, 136)
 
-[node name="Spot5" type="Node2D" parent="World/EatInSpots"]
+[node name="Spot5" type="Node2D" parent="World/World/EatInSpots"]
 position = Vector2(269, 137)
 
-[node name="Spot6" type="Node2D" parent="World/EatInSpots"]
+[node name="Spot6" type="Node2D" parent="World/World/EatInSpots"]
 position = Vector2(269, 64)
 
-[node name="Spot7" type="Node2D" parent="World/EatInSpots"]
+[node name="Spot7" type="Node2D" parent="World/World/EatInSpots"]
 position = Vector2(269, -12)
 
-[node name="Spot8" type="Node2D" parent="World/EatInSpots"]
+[node name="Spot8" type="Node2D" parent="World/World/EatInSpots"]
 position = Vector2(269, -86)
 
-[node name="PeopleSpawner" type="Node2D" parent="World"]
+[node name="PeopleSpawner" type="Node2D" parent="World/World"]
 script = ExtResource("15_jj8i0")
 
-[node name="Point" type="Node2D" parent="World/PeopleSpawner"]
+[node name="Point" type="Node2D" parent="World/World/PeopleSpawner"]
 position = Vector2(-200, -100)
 
-[node name="Point2" type="Node2D" parent="World/PeopleSpawner"]
+[node name="Point2" type="Node2D" parent="World/World/PeopleSpawner"]
 position = Vector2(171, -100)
 
-[node name="Point3" type="Node2D" parent="World/PeopleSpawner"]
+[node name="Point3" type="Node2D" parent="World/World/PeopleSpawner"]
 position = Vector2(302, 41)
 
-[node name="Point4" type="Node2D" parent="World/PeopleSpawner"]
+[node name="Point4" type="Node2D" parent="World/World/PeopleSpawner"]
 position = Vector2(180, 162)
 
-[node name="Point5" type="Node2D" parent="World/PeopleSpawner"]
+[node name="Point5" type="Node2D" parent="World/World/PeopleSpawner"]
 position = Vector2(-218, 162)
 
-[node name="Door" type="Node2D" parent="World"]
+[node name="Door" type="Node2D" parent="World/World"]
 position = Vector2(0, -99)
 script = ExtResource("17_ikrnv")
 
-[node name="HoldingSpot" parent="World" instance=ExtResource("18_bkdy6")]
+[node name="HoldingSpot" parent="World/World" instance=ExtResource("18_bkdy6")]
 
-[node name="HoldingSpot2" parent="World" instance=ExtResource("18_bkdy6")]
+[node name="HoldingSpot2" parent="World/World" instance=ExtResource("18_bkdy6")]
 position = Vector2(85, 38)
 
-[node name="HoldingSpot3" parent="World" instance=ExtResource("18_bkdy6")]
+[node name="HoldingSpot3" parent="World/World" instance=ExtResource("18_bkdy6")]
 position = Vector2(85, 66)
 
-[node name="Trash" type="StaticBody2D" parent="World"]
+[node name="Trash" type="StaticBody2D" parent="World/World"]
 position = Vector2(54, 48)
 script = ExtResource("21_k6d4l")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Trash"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/World/Trash"]
 position = Vector2(-0.5, -10)
 shape = SubResource("RectangleShape2D_fo1a4")
 
-[node name="Sprite2D" type="Sprite2D" parent="World/Trash"]
+[node name="Sprite2D" type="Sprite2D" parent="World/World/Trash"]
 position = Vector2(0, -24)
 texture = ExtResource("21_2287w")
 
-[node name="Area2D" type="Area2D" parent="World/Trash"]
+[node name="Area2D" type="Area2D" parent="World/World/Trash"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Trash/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/World/Trash/Area2D"]
 position = Vector2(-1, -33)
 shape = SubResource("RectangleShape2D_j7n44")
 
-[node name="Fryer" type="Node2D" parent="World"]
-position = Vector2(-51, 133)
-script = ExtResource("23_7phpd")
+[node name="PattyMakers" type="Node2D" parent="World/World"]
+script = ExtResource("27_585uk")
 
-[node name="Graphics" type="Sprite2D" parent="World/Fryer"]
-position = Vector2(1, -52)
-texture = ExtResource("23_3prof")
+[node name="PattyMaker" parent="World/World/PattyMakers" instance=ExtResource("6_bcuv2")]
+position = Vector2(-87, 111)
 
-[node name="Area2D" type="Area2D" parent="World/Fryer"]
-position = Vector2(1, -52)
+[node name="PattyMaker2" parent="World/World/PattyMakers" instance=ExtResource("6_bcuv2")]
+position = Vector2(-87, 80)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Fryer/Area2D"]
-position = Vector2(1, 9)
-shape = SubResource("RectangleShape2D_837km")
+[node name="PattyMaker3" parent="World/World/PattyMakers" instance=ExtResource("6_bcuv2")]
+position = Vector2(-87, 49)
 
-[node name="Pointer" type="Sprite2D" parent="World/Fryer"]
-position = Vector2(1, -67)
-texture = ExtResource("8_4jyph")
+[node name="Coin-pile" type="Sprite2D" parent="World/World"]
+position = Vector2(89, -81)
+texture = ExtResource("26_2vvy3")
+offset = Vector2(0, -25)
+script = ExtResource("27_3f2pb")
 
-[node name="Sprite2D" type="Sprite2D" parent="World/Fryer/Pointer"]
-position = Vector2(1, -3)
-texture = ExtResource("25_ule58")
+[node name="Fryers" type="Node2D" parent="World/World"]
+position = Vector2(-48, 135)
+script = ExtResource("26_nmier")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Fryer" parent="World/World/Fryers" instance=ExtResource("26_rx0pp")]
+
+[node name="Fryer2" parent="World/World/Fryers" instance=ExtResource("26_rx0pp")]
+position = Vector2(91, 0)
+
+[node name="Fryer3" parent="World/World/Fryers" instance=ExtResource("26_rx0pp")]
+position = Vector2(120, 0)
+
+[node name="Camera2D" type="Camera2D" parent="World"]
 
 [node name="HUD" type="CanvasLayer" parent="."]
+offset = Vector2(-320, -180)
+transform = Transform2D(1, 0, 0, 1, -320, -180)
+follow_viewport_enabled = true
 
 [node name="WaitingUI" type="Sprite2D" parent="HUD"]
 position = Vector2(320, 24)
@@ -1110,6 +1112,7 @@ text = "Return To Game"
 icon = ExtResource("43_u4cqc")
 
 [node name="PauseUI" type="CenterContainer" parent="UI"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1179,6 +1182,13 @@ button_pressed = true
 text = "SFX"
 icon = ExtResource("65_f34sx")
 
+[node name="FullscreenToggle" type="CheckButton" parent="UI/PauseUI/ShopPanel/Panel/MarginContainer/VBoxContainer/Options"]
+layout_mode = 2
+tooltip_text = "Turn on or off the sound effects"
+button_pressed = true
+text = "Fullscreen"
+icon = ExtResource("67_8gjfm")
+
 [node name="Buttons" type="VBoxContainer" parent="UI/PauseUI/ShopPanel/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -1223,6 +1233,3 @@ text = "Return To Game"
 icon = ExtResource("43_u4cqc")
 
 [node name="SoundManager" parent="." instance=ExtResource("50_u67th")]
-
-[node name="Coin" parent="." instance=ExtResource("53_knxu7")]
-position = Vector2(-46, -50)

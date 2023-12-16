@@ -20,7 +20,11 @@ func setup_shop():
 	for child in items_container.get_children():
 		child.queue_free()
 	
-	for item in Game.SHOP_ITEMS:
+	var items: Array = Game.SHOP_ITEMS
+	items.sort_custom(func(a, b):
+		return a["cost"] < b["cost"]
+	)
+	for item in items:
 		var container = $ShopPanel/Panel/MarginContainer/VBoxContainer/ForSale/MarginContainer/Scroll/ShopItemsContainer
 		var new_item = shop_item_scene.instantiate()
 		

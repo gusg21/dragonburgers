@@ -10,7 +10,7 @@ radius = 18.0278
 sprite_frames = ExtResource("1_84rcu")
 animation = &"spin"
 autoplay = "spin"
-frame_progress = 0.0482285
+frame_progress = 0.755848
 script = ExtResource("2_do6m3")
 
 [node name="Area2D" type="Area2D" parent="."]

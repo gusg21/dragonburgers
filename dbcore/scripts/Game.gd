@@ -1,6 +1,7 @@
 extends Node
 
 signal mode_changed(new_mode: String)
+signal item_bought(id: int)
 
 # data
 var MODE = "":
@@ -20,6 +21,7 @@ var DEBUG = true
 var PLAYER: Node2D
 var WORLD: Node2D
 var SOUNDZ: Sounds
+var SECONDS_TO_SAD = 40.0
 var HUMANS_IN_BOX = 0
 var HUMANS_GRABBED = 0
 var PATTIES_BURNED = 0
@@ -47,14 +49,39 @@ var IS_REPLAY = false
 var SHOP_ITEMS = [
 	{
 		id = "extra-fryer-1",
-		texture = preload("res://sprites/fryer-highlight.png"),
+		texture = preload("res://sprites/fryer.png"),
 		name = "Extra Fryer",
-		cost = 3,
+		cost = 10,
 		description = "Serve more customers with an extra fryer!"
+	},
+	{
+		id = "extra-fryer-2",
+		texture = preload("res://sprites/fryer.png"),
+		name = "Extra Fryer",
+		cost = 15,
+		description = "Serve EVEN MORE customers with another extra fryer!"
+	},
+	{
+		id = "extra-patty-maker-1",
+		texture = preload("res://sprites/pattymaker.png"),
+		name = "Extra Patty Maker",
+		cost = 5,
+		description = 	"Flatten more villagers into delicious patties " + 
+						"with an extra patty maker!"
+	},
+	{
+		id = "gold-coin-pile",
+		texture = preload("res://sprites/coin-pile-shop-icon.png"),
+		name = "Huge Pile of Gold",
+		cost = 30,
+		description = "Keep your customers happier for longer with some lovely decor! " +
+			"Everyone knows dragons love huge gold piles."
 	}
 ]
+var BOUGHT_ITEM_IDS = []
 
 func reset_data():
+	BOUGHT_ITEM_IDS = []
 	HIDING_SPOTS = []
 	EAT_IN_SPOTS = []
 	HUMANS_IN_BOX = 0
@@ -84,15 +111,18 @@ func get_open_spot():
 	for i in indices:
 		if not CUSTOMER_POSITIONS[i]:
 			return i
+func buy(item_id):
+	BOUGHT_ITEM_IDS.append(item_id)
+	item_bought.emit(item_id)
 
 # constants
 const PAUSEY_MODES = ["pause", "game_over", "menu", "shopping"]
 const SAVE_FILE_NAME = "dragonz.gus"
 const MAX_WAVE_TIME = 90.0
-const SECONDS_TO_SAD = 40.0
 const INGREDIENT_SCENE = preload("res://scenes/Ingredient.tscn")
 const NUMBER_POP_SCENE = preload("res://scenes/NumberPop.tscn")
 const COIN_SCENE = preload("res://scenes/Coin.tscn")
+const DIAMOND_SCENE = preload("res://scenes/Diamond.tscn")
 const FOOD_TYPES: Dictionary = {
 	"burger": {
 		texture = preload("res://sprites/burger.png")
@@ -113,6 +143,8 @@ const FOOD_TYPES: Dictionary = {
 
 func _ready() -> void:
 	randomize()
+	
+	DEBUG = OS.has_feature("editor")
 	
 	var path = "user://" + SAVE_FILE_NAME
 	if not FileAccess.file_exists(path):

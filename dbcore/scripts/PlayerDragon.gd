@@ -50,12 +50,13 @@ func get_held_food_type():
 func _physics_process(_delta):
 	if Game.is_mode_pausey(): return
 	
-	if Input.is_action_just_pressed("DEBUG_die"):
+	if Input.is_action_just_pressed("DEBUG_die") and Game.DEBUG:
 		Game.RATING = 0.01
 	
+	if Input.is_action_just_pressed("DEBUG_add_money") and Game.DEBUG:
+		Game.MONEY += 1
+	
 	if Game.MODE == "serving":
-		$"/root/Gameplay/World/PattyMaker3".visible = Game.WAVE_NUMBER >= 3
-		
 		Game.PLAY_TIME += _delta
 		
 		Game.WAVE_TIME -= _delta

@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://dh15e1lq8x6iq"]
+
+[ext_resource type="Script" path="res://scripts/Fryer.gd" id="1_xhm2x"]
+[ext_resource type="Texture2D" uid="uid://k7bojj71t1o8" path="res://sprites/fryer.png" id="2_x4w16"]
+[ext_resource type="Texture2D" uid="uid://bkgonusra61jk" path="res://sprites/pointer.png" id="3_ngi2s"]
+[ext_resource type="Texture2D" uid="uid://suxdorgsc3a1" path="res://sprites/fries.png" id="4_fqjld"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_837km"]
+size = Vector2(27, 32)
+
+[node name="Fryer" type="Node2D"]
+script = ExtResource("1_xhm2x")
+
+[node name="Graphics" type="Sprite2D" parent="."]
+position = Vector2(1, -52)
+texture = ExtResource("2_x4w16")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(1, -52)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1, 9)
+shape = SubResource("RectangleShape2D_837km")
+
+[node name="Pointer" type="Sprite2D" parent="."]
+position = Vector2(1, -67)
+texture = ExtResource("3_ngi2s")
+
+[node name="Sprite2D" type="Sprite2D" parent="Pointer"]
+position = Vector2(1, -3)
+texture = ExtResource("4_fqjld")

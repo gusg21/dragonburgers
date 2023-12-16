@@ -12,7 +12,7 @@ func get_all_children(in_node,arr:=[]):
 	return arr
 
 func _ready() -> void:
-	if Game.IS_REPLAY or OS.has_feature("editor"):
+	if Game.IS_REPLAY or Game.DEBUG:
 		Game.MODE = "waiting"
 		queue_free()
 		return

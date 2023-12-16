@@ -2,19 +2,19 @@
 
 [ext_resource type="Texture2D" uid="uid://b71o3260tnr83" path="res://sprites/coin.png" id="1_2er6k"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_x2td6"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_npupk"]
 atlas = ExtResource("1_2er6k")
 region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_b45qn"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_3plxk"]
 atlas = ExtResource("1_2er6k")
 region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_13mfa"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gv1pl"]
 atlas = ExtResource("1_2er6k")
 region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kbnrq"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_h85a2"]
 atlas = ExtResource("1_2er6k")
 region = Rect2(96, 0, 32, 32)
 
@@ -22,18 +22,18 @@ region = Rect2(96, 0, 32, 32)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_x2td6")
+"texture": SubResource("AtlasTexture_npupk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_b45qn")
+"texture": SubResource("AtlasTexture_3plxk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_13mfa")
+"texture": SubResource("AtlasTexture_gv1pl")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kbnrq")
+"texture": SubResource("AtlasTexture_h85a2")
 }],
 "loop": true,
 "name": &"spin",
-"speed": 5.0
+"speed": 7.0
 }]

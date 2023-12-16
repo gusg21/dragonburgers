@@ -106,7 +106,7 @@ func _exit_tree() -> void:
 		Game.ALIVE_CUSTOMERS -= 1
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("DEBUG_finish_order"):
+	if event.is_action_pressed("DEBUG_finish_order") and Game.DEBUG:
 		if global_position.distance_to(get_global_mouse_position()) < 20:
 			finish_order()
 
@@ -137,9 +137,37 @@ func exit_building():
 	pop.set_color(Color.GREEN_YELLOW if positive else Color.ORANGE_RED)
 	queue_free()
 
+func drop_coins(count, diamond=false):
+	for i in range(count):
+		var coin = null
+		if not diamond:
+			coin = Game.COIN_SCENE.instantiate()
+		else:
+			coin = Game.DIAMOND_SCENE.instantiate()
+			coin.is_diamond = true
+		get_parent().add_child(coin)
+		coin.position = position + Vector2(
+			randi_range(-5, 5),
+			randi_range(-5, 5)
+		)
+		coin.velocity = Vector2(
+			randf_range(-1, 1),
+			randf_range(-1, 0)
+		).normalized() * 18
+
 func finish_order():
 	Game.CUSTOMERS_SERVED += 1
 	Game.SOUNDZ.play_sound("fanfare")
+	
+	var coin_roll = randf()
+	if coin_roll < 1:
+		drop_coins(1, true)
+	elif coin_roll < 0.7:
+		drop_coins(1)
+	elif coin_roll < 0.98:
+		drop_coins(2)
+	elif coin_roll < 1:
+		drop_coins(1, true)
 	
 	Game.ALIVE_CUSTOMERS -= 1
 	marked_as_not_alive = true

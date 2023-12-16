@@ -4,13 +4,9 @@ const builtin_type_names = ["nil", "bool", "int", "real", "string", "vector2", "
 
 func _ready() -> void:
 	visible = false
-	
-	if not OS.has_feature("editor"):
-		queue_free()
-		return
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("DEBUG_toggle_panel"):
+	if event.is_action_pressed("DEBUG_toggle_panel") and Game.DEBUG:
 		visible = !visible
 
 # Called when the node enters the scene tree for the first time.
